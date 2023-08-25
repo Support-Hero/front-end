@@ -1,20 +1,39 @@
 import React from "react";
-import Navbar from "../Navbar/Navbar";
-import Bottom
- from "../Bottom/Bottom";
+import "./login.css";
+import Body from "../components/body/Body";
+import { api } from "../api";
 const Login = ({ navigate }) => {
-  console.log(import.meta.env.VITE_API_HOST);
 
-  return (
+  // login request
+  const submit = async () => {
+    // const formData = new FormData();
+    // formData.append("email", email);
+    // formData.append("password", password);
+    // await fetch(api + "/login", {
+    //   method: "POST",
+    //   mode: "cors",
+    //   credentials: "same-origin", 
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: formData,
+    // }).then((res)=> {
+    //   localStorage.setItem('username','km@g.com')
+    // }).catch(error=> {
+    //   console.error("Error:", error);
+    // })
+    navigate("/welcome");
+  };
+  
+  const body = (
     <>
-    <Navbar />
-
-      <div className="d-flex justify-content-center align-items-center w-100">
+      <div className="d-flex justify-content-center align-items-center w-100" style={{ paddingBottom:"250px"}}>
         <img
           src="https://media.discordapp.net/attachments/1138692622467211358/1142424320388378674/image.png"
-          style={{ width: "50%", objectFit: "contain" }}
+          style={{ width: "40%", objectFit: "contain" }}
+          id="logo"
         />
-        <form onSubmit={() => navigate("/welcome")} className="w-25" style={{marginRight:"50px"}}>
+        <form onSubmit={submit} id="loginbox" style={{ marginRight: "50px" }}>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
               Email address
@@ -24,11 +43,8 @@ const Login = ({ navigate }) => {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
-              required
+              // required
             />
-            <div id="emailHelp" className="form-text">
-              We'll never share your email with anyone else.
-            </div>
           </div>
           <div className="mb-3">
             <label htmlFor="exampleInputPassword1" className="form-label">
@@ -38,7 +54,7 @@ const Login = ({ navigate }) => {
               type="password"
               className="form-control"
               id="exampleInputPassword1"
-              required
+              // required
             />
           </div>
           <div className="mb-3 form-check">
@@ -48,20 +64,17 @@ const Login = ({ navigate }) => {
               id="exampleCheck1"
             />
             <label className="form-check-label" htmlFor="exampleCheck1">
-              Check me out
+              remember me
             </label>
           </div>
           <button type="submit" className="btn btn-primary">
-            Submit
+            Sign In
           </button>
         </form>
+        
       </div>
-      <Bottom />
-        <div className="d-flex w-100 ">
-          <img className="w-50 " src="https://media.istockphoto.com/id/1268410371/vector/disabled-people-help-and-diversity.jpg?s=612x612&w=0&k=20&c=7I-mbaXwfVtwXvwDlm6pl9EomlWBOZiip9Wb6MxvkK0=" />
-          <img className="w-50" src="https://www.reachfortraining.com.au/wp-content/uploads/2023/04/home-community-1.2-1.jpg" />
-        </div>
     </>
   );
+  return <Body body={body} />;
 };
 export default Login;
