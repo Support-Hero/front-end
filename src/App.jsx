@@ -8,6 +8,10 @@ import Clients from "./Clients/Clients";
 import Client from "./Clients/Client";
 import Note_4Client from "./Notes_record/Note_4Client";
 import NotesRecord from "./Notes_record/NotesRecord";
+import Client from './Clients/Client';
+import CreateNotes from './createnotes/createNotes';
+
+
 
 function App() {
   const navigate = useNavigate();
@@ -21,8 +25,9 @@ function App() {
       <Route path="/clients/:id" element={<Client />} />
       <Route path="/notes" element={<NotesRecord />} />
       <Route path="/notes/:id" element={<Note_4Client />} />
+      <Route path="/create-notes" element={ <CreateNotes />} />
     </Routes>
-  );
+  )
 }
 
 export default App;
