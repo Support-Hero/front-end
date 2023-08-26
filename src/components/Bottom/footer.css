@@ -1,17 +1,5 @@
 #footer {
     position: absolute;
-    bottom: 0;
-}
+    bottom: 0px;
 
-@media screen and (min-width:500px) {
-    #footer {
-        height: 400px;
-
-    }
-}
-
-@media screen and (min-width:800px) {
-    #footer {
-        height: 250px;
-    }
 }

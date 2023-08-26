@@ -5,6 +5,7 @@
     }
     #image2 {
         width: 100vw;
+        padding-top: 60px;
     }
     #logo {
         display: none; 
@@ -20,7 +21,7 @@
     }
     #image2 {
         width: 50%;
-
+        padding-top: 0;
     }
     #logo {
         display: block; 

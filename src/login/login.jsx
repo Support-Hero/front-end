@@ -27,7 +27,7 @@ const Login = ({ navigate }) => {
   
   const body = (
     <>
-      <div className="d-flex justify-content-center align-items-center w-100" style={{ paddingBottom:"250px"}}>
+      <div className="d-flex justify-content-center align-items-center w-100" >
         <img
           src="https://media.discordapp.net/attachments/1138692622467211358/1142424320388378674/image.png"
           style={{ width: "40%", objectFit: "contain" }}
@@ -72,6 +72,16 @@ const Login = ({ navigate }) => {
           </button>
         </form>
         
+      </div>
+      <div className="d-flex w-100 ">
+        <img
+          id="image1"
+          src="https://media.istockphoto.com/id/1268410371/vector/disabled-people-help-and-diversity.jpg?s=612x612&w=0&k=20&c=7I-mbaXwfVtwXvwDlm6pl9EomlWBOZiip9Wb6MxvkK0="
+        />
+        <img
+          id="image2"
+          src="https://www.reachfortraining.com.au/wp-content/uploads/2023/04/home-community-1.2-1.jpg"
+        />
       </div>
     </>
   );
