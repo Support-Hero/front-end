@@ -8,7 +8,6 @@ import Clients from "./Clients/Clients";
 import Client from "./Clients/Client";
 import Note_4Client from "./Notes_record/Note_4Client";
 import NotesRecord from "./Notes_record/NotesRecord";
-import Client from './Clients/Client';
 import CreateNotes from './createnotes/createNotes';
 
 
