@@ -4,8 +4,8 @@ import Bottom from "../Bottom/Bottom";
 
 const Body = ({ body }) => {
   return (
-    <div style={{ minHeight: "100vh", position: "relative" }}>
-      <div style={{ paddingBottom: "0px" }}>
+    <div style={{minHeight:"100vh",position: "relative" }} >
+      <div >
         <Navbar />
         {body}
       </div>

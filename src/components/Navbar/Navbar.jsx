@@ -22,17 +22,18 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link to="/welcome" className="nav-link active" aria-current="page" href="#">
+              <Link
+                to="/welcome"
+                className="nav-link active"
+                aria-current="page"
+                href="#"
+              >
                 Home
-                </Link>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Link
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
-              <a
+              <Link
+                to="/"
                 className="nav-link dropdown-toggle"
                 href="#"
                 id="navbarDropdown"
@@ -40,50 +41,47 @@ const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Dropdown
-              </a>
+                All
+              </Link>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
+                  <Link to="/workers" className="dropdown-item" href="#">
+                    workers
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
+                  <Link to="/clients" className="dropdown-item" href="#">
+                    Clients
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/rosters" className="dropdown-item" href="#">
+                    Rosters
+                  </Link>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
+                  <Link to="/teams" className="dropdown-item" href="#">
+                    Teams
+                  </Link>
                 </li>
               </ul>
             </li>
+          </ul>
+          <ul className="d-flex navbar-nav">
             <li className="nav-item">
-              <a
-                className="nav-link disabled"
+              <Link
+                to="/welcome"
+                className="nav-link active"
+                aria-current="page"
                 href="#"
-                aria-disabled="true"
               >
-                Disabled
-              </a>
+                My Account
+              </Link>
             </li>
           </ul>
-          <form className="d-flex">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
         </div>
       </div>
     </nav>

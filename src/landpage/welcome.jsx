@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
+import Bottom from "../components/Bottom/Bottom"
+import Body from '../components/body/Body'
 import { Link } from "react-router-dom";
 const Welcome = () => {
   const lists = [
@@ -17,7 +19,7 @@ const Welcome = () => {
     },
     {
       imsrc: "bi-file-earmark-medical",
-      bgcolor: "warning ",
+      bgcolor: "secondary ",
       title: "rosters",
       description: "worker information, crud",
     },
@@ -27,6 +29,13 @@ const Welcome = () => {
       title: "teams",
       description: "worker information, crud",
     },
+    {
+      imsrc: "bi-microsoft-teams",
+      bgcolor: "danger",
+      title: "notes",
+      description: "worker information, crud",
+    },
+    
   ];
   useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("access") && localStorage.getItem("user")) {
@@ -35,15 +44,14 @@ const Welcome = () => {
       setUser(JSON.parse(localStorage.getItem("user")))
     }
   }, [])
-  return (
-    <div style={{ height: "100vh" }}>
-      <Navbar />
-      <div className="w-75 text-start mx-auto mt-5">
+  const body=(
+    <>
+    <div className="w-75 text-start mx-auto mt-5">
         Welcome 
         <hr />
       </div>
 
-      <div className="w-100 d-flex flex-column justify-content-center align-items-center ">
+      <div className="w-100 d-flex flex-column justify-content-center align-items-center" style={{paddingBottom:'100px'}} >
         {lists.map((list, index) => (
           <div
             className={`w-75  mt-3 border border-${list.bgcolor}`}
@@ -59,8 +67,10 @@ const Welcome = () => {
             <div className="p-2 bg-secondary bg-opacity-25">{list.description}</div>
           </div>
         ))}
-      </div>
-    </div>
+      </div></>
+  )
+  return (
+    <Body body={body} />
   );
 };
 export default Welcome;

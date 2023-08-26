@@ -1,4 +1,4 @@
-export const dummyworkers=[
+export const dummyworker = [
     {
         "id": 1,
         "name": "John Doe",
@@ -181,7 +181,7 @@ export const dummyworkers=[
     }
 ]
 
-export const dummyclients=[
+export const dummyclient = [
     {
         "id": 1,
         "name": "John Doe",
@@ -421,5 +421,136 @@ export const dummyclients=[
         "name": "Ava Davis",
         "address": "555 Galaxy Rd, Cosmicville, USA",
         "phone_number": "(012) 345-6789"
+    },
+    {
+        "id": 41,
+        "name": "John Doe",
+        "address": "123 Main St, Cityville, USA",
+        "phone_number": "(123) 456-7890"
+    },
+
+]
+
+export const dummyNotes = [
+    {
+        "id": 1,
+        "date": "2023-08-26",
+        "goals": "Assist with medication management, engage in social activities.",
+        "presentation": "Client appeared calm and engaged in conversations.",
+        "actions": "Administered prescribed medications, accompanied client to community center.",
+        "outcome": "Client reported feeling more relaxed and enjoyed the outing.",
+        "followUp": "Sarah Johnson",
+        "followUpNote": "Discussed client's positive response to the outing, suggested scheduling regular social activities.",
+        "author": "Emily Thompson",
+        "client_id": 1
+        // "client": {"client_id":1, "client_name":"Luise Way"}
+    },
+    {
+        "id": 2,
+        "date": "2023-08-27",
+        "goals": "Help with meal preparation, encourage light exercise.",
+        "presentation": "Client seemed fatigued and had a reduced appetite.",
+        "actions": "Prepared a nutritious meal, assisted with gentle stretches.",
+        "outcome": "Client ate a good portion of the meal and expressed feeling a bit more energetic.",
+        "followUp": "Michael Anderson",
+        "followUpNote": "Advised client to monitor energy levels, recommended discussing appetite changes with doctor.",
+        "author": "Jessica Ramirez",
+        "client_id": 1
+    },
+    {
+        "id": 3,
+        "date": "2023-08-28",
+        "goals": "Support with personal hygiene, engage in memory-boosting activities.",
+        "presentation": "Client was initially resistant but became cooperative.",
+        "actions": "Assisted with shower, played memory games together.",
+        "outcome": "Client's mood improved and they actively participated in the activities.",
+        "followUp": "David Smith",
+        "followUpNote": "Suggested incorporating more memory-boosting activities into...",
+        "author": "John Doe",
+        "client_id": 1
+    },
+    {
+        "id": 4,
+        "date": "2023-08-29",
+        "goals": "Assist in mobility exercises, medication management.",
+        "presentation": "Client reported feeling aches and pains in the morning.",
+        "actions": "Guided client through gentle mobility exercises, administered pain relief medication.",
+        "outcome": "Client felt more comfortable and mentioned a decrease in pain.",
+        "followUp": "Jennifer Lee",
+        "followUpNote": "Recommended consistent mobility exercises, advised consulting doctor about persistent pain.",
+        "author": "Alex Martinez",
+        "client_id": 2
+    },
+    {
+        "id": 5,
+        "date": "2023-08-30",
+        "goals": "Engage in cognitive activities, encourage social interactions.",
+        "presentation": "Client appeared alert and interested in interactions.",
+        "actions": "Played brain-teaser games, facilitated conversations with peers.",
+        "outcome": "Client was excited about solving puzzles and actively participated in group discussions.",
+        "followUp": "Rebecca White",
+        "followUpNote": "Suggested introducing more varied cognitive challenges, noted client's enthusiasm.",
+        "author": "Sam Johnson",
+        "client_id": 2
+    },
+    {
+        "id": 6,
+        "date": "2023-08-31",
+        "goals": "Assist with grooming, accompany to medical appointment.",
+        "presentation": "Client seemed anxious about the upcoming appointment.",
+        "actions": "Helped with grooming, provided emotional support during the visit.",
+        "outcome": "Client felt more at ease after discussing concerns with the doctor.",
+        "followUp": "Laura Anderson",
+        "followUpNote": "Recommended exploring relaxation techniques, praised client for effectively communicating concerns.",
+        "author": "Daniel Williams",
+        "client_id": 1
+    },
+    {
+        "id": 7,
+        "date": "2023-09-01",
+        "goals": "Encourage healthy eating, engage in light exercises.",
+        "presentation": "Client was enthusiastic and motivated to start the day.",
+        "actions": "Discussed balanced meal options, guided through gentle morning exercises.",
+        "outcome": "Client expressed interest in trying new foods and enjoyed the exercise routine.",
+        "followUp": "Sophia Brown",
+        "followUpNote": "Suggested maintaining a food journal, planned to introduce slightly more challenging exercises.",
+        "author": "Megan Wilson",
+        "client_id": 3
+    },
+    {
+        "id": 8,
+        "date": "2023-09-02",
+        "goals": "Assist in medication management, provide companionship.",
+        "presentation": "Client appeared in good spirits and eager to chat.",
+        "actions": "Administered prescribed medications, engaged in meaningful conversations.",
+        "outcome": "Client mentioned feeling more organized with their medications and appreciated the company.",
+        "followUp": "William Turner",
+        "followUpNote": "Recommended creating a weekly medication organizer, noted client's positive outlook.",
+        "author": "Olivia Clark",
+        "client_id": 1
+    },
+    {
+        "id": 9,
+        "date": "2023-09-03",
+        "goals": "Support with household chores, promote relaxation.",
+        "presentation": "Client seemed overwhelmed by clutter and slightly stressed.",
+        "actions": "Assisted in tidying up living space, guided through a short relaxation exercise.",
+        "outcome": "Client's environment appeared neater, and they reported feeling calmer.",
+        "followUp": "Aiden Murphy",
+        "followUpNote": "Suggested discussing organization strategies, planned to introduce more in-depth relaxation techniques.",
+        "author": "Sophie Miller",
+        "client_id": 1
+    },
+    {
+        "id": 10,
+        "date": "2023-09-04",
+        "goals": "Engage in creative activities, encourage self-expression.",
+        "presentation": "Client appeared eager to try something new and artistic.",
+        "actions": "Supplied art materials, assisted in creating a painting.",
+        "outcome": "Client was thrilled with the artwork produced and expressed a desire to explore more creative pursuits.",
+        "followUp": "Ethan Brooks",
+        "followUpNote": "Recommended exploring local art classes, praised client for their artistic talent.",
+        "author": "Liam Davis",
+        "client_id": 2
     }
 ]
