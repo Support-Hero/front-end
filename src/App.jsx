@@ -8,7 +8,7 @@ import Clients from "./Clients/Clients";
 import Client from "./Clients/Client";
 import Note_4Client from "./Notes_record/Note_4Client";
 import NotesRecord from "./Notes_record/NotesRecord";
-// import Roster from "./rosters/Roster";
+import Roster from "./rosters/Roster";
 
 function App() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Login navigate={navigate} />} />
       <Route path="/welcome" element={<Welcome />} />
-      {/* <Route path="/rosters" element={<Roster />} /> */}
+      <Route path="/rosters" element={<Roster />} />
       <Route path="/workers" element={<Workers />} />
       <Route path="/workers/:id" element={<Worker />} />
       <Route path="/clients" element={<Clients />} />
