@@ -91,7 +91,10 @@ const Workers = () => {
               ))}
             </tbody>
           </table>
+          <div className="w-75 mx-auto">
+
           <Pagination dummyclients={dummyworkers} clientPage={clientPage} setClientsEachPage={setWorkersEachPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          </div>
 
         </>
       )}

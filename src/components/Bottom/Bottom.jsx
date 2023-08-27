@@ -11,7 +11,7 @@ const Bottom = () => {
       <div
         style={{ height: "50px",lineHeight:'50px' }}
       >
-        this is the bottom
+        &copy;Cameron Williams && Wen Lu && Zac
       </div>
     </div>
   );

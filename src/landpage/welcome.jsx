@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Navbar from "../components/Navbar/Navbar";
-import Bottom from "../components/Bottom/Bottom"
 import Body from '../components/body/Body'
 import { Link } from "react-router-dom";
 const Welcome = () => {

@@ -10,6 +10,7 @@ import Note_4Client from "./Notes_record/Note_4Client";
 import NotesRecord from "./Notes_record/NotesRecord";
 import CreateNotes from './createnotes/createNotes';
 import CaseNoteApproval from "./CaseNoteApproval/casenoteapproval";
+import WorkerDashboard from "./WorkerDashboard/WorkerDashboard";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <Route path="/notes/:id" element={<Note_4Client />} />
       <Route path="/create-notes" element={ <CreateNotes />} />
       <Route path="/case-note-approval" element={ <CaseNoteApproval />} />
+      <Route path="/worker-dashboard" element={ <WorkerDashboard />} />
     </Routes>
   )
 }
