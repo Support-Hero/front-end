@@ -554,3 +554,276 @@ export const dummyNotes = [
         "client_id": 2
     }
 ]
+
+export const dummyRosters=[
+    {
+      "name": "John Smith",
+      "date": "2023-08-01",
+      "shiftStart": "09:00 AM",
+      "shiftEnd": "05:00 PM",
+      "break": true,
+      "breakStart": "12:00 PM",
+      "breakEnd": "12:30 PM"
+    },
+    {
+      "name": "Emily Johnson",
+      "date": "2023-08-01",
+      "shiftStart": "08:30 AM",
+      "shiftEnd": "04:30 PM",
+      "break": true,
+      "breakStart": "12:30 PM",
+      "breakEnd": "01:00 PM"
+    },
+    {
+      "name": "Michael Williams",
+      "date": "2023-08-02",
+      "shiftStart": "10:00 AM",
+      "shiftEnd": "06:00 PM",
+      "break": false,
+      "breakStart": null,
+      "breakEnd": null
+    },
+    {
+      "name": "Sarah Davis",
+      "date": "2023-08-02",
+      "shiftStart": "12:00 PM",
+      "shiftEnd": "08:00 PM",
+      "break": true,
+      "breakStart": "03:00 PM",
+      "breakEnd": "03:30 PM"
+    },
+    {
+      "name": "David Wilson",
+      "date": "2023-08-03",
+      "shiftStart": "07:30 AM",
+      "shiftEnd": "03:30 PM",
+      "break": true,
+      "breakStart": "11:30 AM",
+      "breakEnd": "12:00 PM"
+    },
+    {
+      "name": "Emma Anderson",
+      "date": "2023-08-03",
+      "shiftStart": "02:00 PM",
+      "shiftEnd": "10:00 PM",
+      "break": true,
+      "breakStart": "05:00 PM",
+      "breakEnd": "05:30 PM"
+    },
+    {
+      "name": "James Martinez",
+      "date": "2023-08-04",
+      "shiftStart": "11:00 AM",
+      "shiftEnd": "03:00 PM",
+      "break": false,
+      "breakStart": null,
+      "breakEnd": null
+    },
+    {
+      "name": "Olivia Thompson",
+      "date": "2023-08-04",
+      "shiftStart": "09:30 AM",
+      "shiftEnd": "05:30 PM",
+      "break": true,
+      "breakStart": "01:00 PM",
+      "breakEnd": "01:30 PM"
+    },
+    {
+      "name": "William Hernandez",
+      "date": "2023-08-05",
+      "shiftStart": "08:00 AM",
+      "shiftEnd": "04:00 PM",
+      "break": true,
+      "breakStart": "12:30 PM",
+      "breakEnd": "01:00 PM"
+    },
+    {
+      "name": "Ava Brown",
+      "date": "2023-08-05",
+      "shiftStart": "12:00 PM",
+      "shiftEnd": "08:00 PM",
+      "break": true,
+      "breakStart": "03:00 PM",
+      "breakEnd": "03:30 PM"
+    },
+    {
+      "name": "Daniel Jackson",
+      "date": "2023-08-06",
+      "shiftStart": "10:00 AM",
+      "shiftEnd": "06:00 PM",
+      "break": false,
+      "breakStart": null,
+      "breakEnd": null
+    },
+    {
+      "name": "Sophia Taylor",
+      "date": "2023-08-06",
+      "shiftStart": "01:30 PM",
+      "shiftEnd": "09:30 PM",
+      "break": true,
+      "breakStart": "04:30 PM",
+      "breakEnd": "05:00 PM"
+    },
+    {
+      "name": "Joseph Anderson",
+      "date": "2023-08-07",
+      "shiftStart": "09:00 AM",
+      "shiftEnd": "05:00 PM",
+      "break": true,
+      "breakStart": "12:30 PM",
+      "breakEnd": "01:00 PM"
+    },
+    {
+      "name": "Grace Davis",
+      "date": "2023-08-07",
+      "shiftStart": "02:00 PM",
+      "shiftEnd": "10:00 PM",
+      "break": true,
+      "breakStart": "05:00 PM",
+      "breakEnd": "05:30 PM"
+    },
+    {
+      "name": "Samuel Wilson",
+      "date": "2023-08-08",
+      "shiftStart": "08:30 AM",
+      "shiftEnd": "04:30 PM",
+      "break": false,
+      "breakStart": null,
+      "breakEnd": null
+    },
+    {
+      "name": "Chloe Martinez",
+      "date": "2023-08-08",
+      "shiftStart": "11:00 AM",
+      "shiftEnd": "07:00 PM",
+      "break": true,
+      "breakStart": "03:00 PM",
+      "breakEnd": "03:30 PM"
+    },
+    {
+      "name": "Ethan Thompson",
+      "date": "2023-08-09",
+      "shiftStart": "10:00 AM",
+      "shiftEnd": "06:00 PM",
+      "break": true,
+      "breakStart": "01:30 PM",
+      "breakEnd": "02:00 PM"
+    },
+    {
+      "name": "Mia Johnson",
+      "date": "2023-08-09",
+      "shiftStart": "12:00 PM",
+      "shiftEnd": "08:00 PM",
+      "break": false,
+      "breakStart": null,
+      "breakEnd": null
+    },
+    {
+      "name": "Alexander Smith",
+      "date": "2023-08-10",
+      "shiftStart": "09:30 AM",
+      "shiftEnd": "05:30 PM",
+      "break": true,
+      "breakStart": "01:00 PM",
+      "breakEnd": "01:30 PM"
+    },
+    {
+      "name": "Lily Davis",
+      "date": "2023-08-10",
+      "shiftStart": "02:00 PM",
+      "shiftEnd": "10:00 PM",
+      "break": true,
+      "breakStart": "05:30 PM",
+      "breakEnd": "06:00 PM"
+    },
+    {
+      "name": "Ryan Wilson",
+      "date": "2023-08-11",
+      "shiftStart": "08:00 AM",
+      "shiftEnd": "04:00 PM",
+      "break": false,
+      "breakStart": null,
+      "breakEnd": null
+    },
+    {
+      "name": "Aria Anderson",
+      "date": "2023-08-11",
+      "shiftStart": "11:00 AM",
+      "shiftEnd": "07:00 PM",
+      "break": true,
+      "breakStart": "03:00 PM",
+      "breakEnd": "03:30 PM"
+    },
+    {
+      "name": "Noah Martinez",
+      "date": "2023-08-12",
+      "shiftStart": "10:00 AM",
+      "shiftEnd": "06:00 PM",
+      "break": true,
+      "breakStart": "01:30 PM",
+      "breakEnd": "02:00 PM"
+    },
+    {
+      "name": "Sophie Johnson",
+      "date": "2023-08-12",
+      "shiftStart": "12:00 PM",
+      "shiftEnd": "08:00 PM",
+      "break": true,
+      "breakStart": "03:30 PM",
+      "breakEnd": "04:00 PM"
+    },
+    {
+      "name": "Elijah Smith",
+      "date": "2023-08-13",
+      "shiftStart": "09:00 AM",
+      "shiftEnd": "05:00 PM",
+      "break": true,
+      "breakStart": "12:30 PM",
+      "breakEnd": "01:00 PM"
+    },
+    {
+      "name": "Avery Davis",
+      "date": "2023-08-13",
+      "shiftStart": "02:00 PM",
+      "shiftEnd": "10:00 PM",
+      "break": true,
+      "breakStart": "05:00 PM",
+      "breakEnd": "05:30 PM"
+    },
+    {
+      "name": "Benjamin Wilson",
+      "date": "2023-08-14",
+      "shiftStart": "08:30 AM",
+      "shiftEnd": "04:30 PM",
+      "break": false,
+      "breakStart": null,
+      "breakEnd": null
+    },
+    {
+      "name": "Zoe Martinez",
+      "date": "2023-08-14",
+      "shiftStart": "11:00 AM",
+      "shiftEnd": "07:00 PM",
+      "break": true,
+      "breakStart": "03:00 PM",
+      "breakEnd": "03:30 PM"
+    },
+    {
+      "name": "Daniel Thompson",
+      "date": "2023-08-15",
+      "shiftStart": "10:00 AM",
+      "shiftEnd": "06:00 PM",
+      "break": true,
+      "breakStart": "01:30 PM",
+      "breakEnd": "02:00 PM"
+    },
+    {
+      "name": "Sofia Johnson",
+      "date": "2023-08-15",
+      "shiftStart": "12:00 PM",
+      "shiftEnd": "08:00 PM",
+      "break": false,
+      "breakStart": null,
+      "breakEnd": null
+    }
+  ]

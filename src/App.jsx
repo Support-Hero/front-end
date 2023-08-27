@@ -11,7 +11,6 @@ import NotesRecord from "./Notes_record/NotesRecord";
 import CreateNotes from './createnotes/createNotes';
 
 
-
 function App() {
   const navigate = useNavigate();
   return (
