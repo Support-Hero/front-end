@@ -1,160 +1,164 @@
 import React from "react";
 import { clientSlicer } from "../components/pagination";
+import { api } from "../api";
 const Create = (
-  { name,
+  {
+    firstName,
+    lastName,
     phonenumber,
     address,
-    allclients,
     setAddress,
-    setName,
+    setFirstName,
+    setLastName,
     setPhonenumber,
-    setDummyclients }
+    setOpen }
 ) => {
+
   // create client api fetch
-  const addnewClient = (
-    allclients,
-    setDummyclients,
-    name,
+  const addnewClient = async (
+    firstName,
+    lastName,
     phonenumber,
-    address
+    address,
+    setOpen,
   ) => {
     // post data
-
-    // set clients data
-    setDummyclients(
-      clientSlicer([
-        ...Object.entries(allclients),
-        {
-          firstName: name,
-          phoneNumber: phonenumber,
-          address: address,
+    const res = await fetch(api + "/clients/", {
+      method: "POST",
+      body: JSON.stringify(
+        {firstName:firstName,
+          lastName:lastName,
+          phoneNumber:phonenumber,
+          address:address
         }
-      ])
-    );
+      ),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    window.location.reload()
     // reset all input
-    setName()
-    setAddress()
-    setPhonenumber()
+    setOpen(false)
   };
-  const addModal = (
-    name,
+
+  const addM = (
+    firstName, lastName,
     phonenumber,
     address,
-    allclients,
     setAddress,
-    setName,
+    setFirstName,
+    setLastName,
     setPhonenumber,
-    setDummyclients
-  ) => (
-    <div
-      className="modal fade"
-      id="clientAddModal"
-      tabIndex="-1"
-      aria-labelledby="clientAddModal"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <form
-            className="p-5"
-            onSubmit={(e) => {
-              e.preventDefault();
-              addnewClient(
-                allclients,
-                setDummyclients,
-                name,
-                phonenumber,
-                address
-              );
+    setOpen) => (
+    <div className='bg-black w-100 h-100 bg-opacity-75 pt-5' style={{ position: "absolute", top: "0", zIndex: 1 }}>
+      <div className="bg-white w-50 mx-auto p-5">
+        <form
+          className="p-5"
+          onSubmit={(e) => {
+            e.preventDefault();
+            addnewClient(
+              firstName,
+              lastName,
+              phonenumber,
+              address,
+              setOpen,
+            );
 
-            }}
-          >
-            <h5 className="modal-title" id="clientAddModal">
-              Add Client
-            </h5>
-            <hr />
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
-                name
-              </label>
-              <input
-                type="name"
-                value={name}
-                onChange={(e) => {
-                  e.preventDefault();
-                  setName(e.target.value);
-                }}
-                className="form-control"
-                id="name"
-                aria-describedby="name"
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="phone_number" className="form-label">
-                phone number
-              </label>
-              <input
-                value={phonenumber}
-                onChange={(e) => {
-                  e.preventDefault();
-                  setPhonenumber(e.target.value);
-                }}
-                type="phone_number"
-                className="form-control"
-                id="phone_number"
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="address" className="form-label">
-                address
-              </label>
-              <input
-                type="address"
-                className="form-control"
-                value={address}
-                onChange={(e) => {
-                  e.preventDefault();
-                  setAddress(e.target.value);
-                }}
-                id="address"
-              />
-            </div>
-            <div className="d-flex justify-content-md-between">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-                onClick={(e) => {
-                  e.preventDefault()
-                  setName()
-                  setAddress()
-                  setPhonenumber()
-                }}
-              >
-                Close
-              </button>
-              <button type="submit" className="btn btn-primary">
-                Save{" "}
-              </button>
-            </div>
-          </form>
-        </div>
+          }}
+        >
+          <h5 >
+            Add Client
+          </h5>
+          <hr />
+          <div className="mb-3">
+            <label htmlFor="firstname" className="form-label">
+              first name
+            </label>
+            <input
+            required
+              value={firstName}
+              onChange={(e) => {
+                e.preventDefault();
+                setFirstName(e.target.value);
+              }}
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="lastname" className="form-label">
+              last name
+            </label>
+            <input
+            required
+              value={lastName}
+              onChange={(e) => {
+                e.preventDefault();
+                setLastName(e.target.value);
+              }}
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="phonenumber" className="form-label">
+              phone number
+            </label>
+            <input required
+              className="form-control"
+              value={phonenumber}
+              onChange={(e) => {
+                e.preventDefault();
+                setPhonenumber(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="address" className="form-label">
+              address
+            </label>
+            <input required
+              className="form-control"
+              value={address}
+              onChange={(e) => {
+                e.preventDefault();
+                setAddress(e.target.value);
+              }}
+            />
+          </div>
+          <div className="d-flex justify-content-md-between">
+            <button
+              className="btn btn-secondary"
+              onClick={(e) => {
+                e.preventDefault();
+                setFirstName();
+                setLastName();
+                setAddress();
+                setPhonenumber();
+                setOpen(false)
+              }}
+            >
+              Close
+            </button>
+            <button type="submit" className="btn btn-primary">
+              Save{" "}
+            </button>
+          </div>
+        </form>
       </div>
+
     </div>
-  );
+  )
   return (
-    <div>
-      {addModal(
-        name,
+    <>
+      {addM(
+            firstName, lastName,
         phonenumber,
         address,
-        allclients,
         setAddress,
-        setName,
+        setFirstName,
+        setLastName,
         setPhonenumber,
-        setDummyclients
-      )}
-    </div>
+        setOpen)}
+    </>
   );
 };
 export default Create;

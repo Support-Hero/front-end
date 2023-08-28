@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar"
 import { dummyRosters } from "../dummy";
 import Pagination, { clientSlicer } from "../components/pagination";
+import RosterCreate from "../modals/RosterCreate";
+import { getDateList } from "../components/getdates";
 const Roster = () => {
-    const currentedays = [
-        "2023-08-01",
-        "2023-08-02",
-        "2023-08-03",
-        "2023-08-04",
-        "2023-08-05",
-        "2023-08-06",
-        "2023-08-07",
-    ]
-    const [weekdays, setWeekdays] = useState(currentedays);
+    const twoweeksdays = getDateList()
+    const currentdays = twoweeksdays.slice(0, 7)
+    // states to create new shift
+    const [date, setDate] = useState()
+    const [workerName, setWorkerName] = useState()
+    const [createOpen, setCreateOpen] = useState(false)
+    const [weekdays, setWeekdays] = useState(currentdays);
+
     // slice all the roster data :step1
     const [dummyclients, setSlicedRosters] = useState(clientSlicer(dummyRosters))
 
@@ -35,61 +35,37 @@ const Roster = () => {
         e.preventDefault()
 
         setWeekdays(
-            [
-                "2023-08-08",
-                "2023-08-09",
-                "2023-08-10",
-                "2023-08-11",
-                "2023-08-12",
-                "2023-08-13",
-                "2023-08-14",
-            ]
+            twoweeksdays.slice(7, 14)
         )
+        setValue(2)
     };
-    const generatePrevioustWeek = (e) => {
-        e.preventDefault()
-        setWeekdays([
-            "2023-07-25",
-            "2023-07-26",
-            "2023-07-27",
-            "2023-07-28",
-            "2023-07-29",
-            "2023-07-30",
-            "2023-07-31",
-        ])
-    };
+    const [value, setValue] = useState(-1)
     useEffect(() => {
         pages(dummyclients)
     }, [])
-    console.log('roste', rostersEachPage, currentPage)
-    // console.log('slice',dummyclients[2])
+
     return (
         <div>
             <Navbar />
+            {createOpen && <RosterCreate setOpen={setCreateOpen} workerName={workerName} setWorkerName={setWorkerName} date={date} setDate={setDate} />}
             <div className="container">
 
                 <div className=" text-start mx-auto mt-5">
                     <div id="second_nav_out" className="d-flex justify-content-between ">
-                        <label className="fs-3">Clients</label>
-
-                        <button
-                            className="btn btn-primary "
-                            data-bs-toggle="modal"
-                            data-bs-target="#clientAddModal"
-                        >
-                            + Add New Shift
-                        </button>
+                        <label className="fs-3">Rosters</label>
                     </div>
                     <hr />
                 </div>
                 <div className="d-flex justify-content-end" >
 
-                    <button className="btn" onClick={generatePrevioustWeek}>previous</button>
                     <button className="btn" onClick={(e) => {
                         e.preventDefault()
-                        setWeekdays(currentedays)
-                    }}>current week</button>
-                    <button className="btn" onClick={generateNextWeek}>next</button>
+                        setWeekdays(currentdays)
+                        setValue(1)
+                    }} style={{color:value===1?"red":""}}>current</button>
+                    <button className="btn" onClick={generateNextWeek}
+                    style={{color:value===2?"red":""}}
+                    >next week</button>
                 </div>
                 <div>
 
@@ -101,42 +77,44 @@ const Roster = () => {
                         setCurrentPage={setCurrentPage}
                     />
                 </div>
+                <div style={{ overflow: "auto", height: "80vh",borderStyle:"solid",borderColor:"lightgray" }} >
 
-                <table className="table table-bordered p-0" >
-                    <thead>
-                        <tr>
-                            <th></th>
-                            {
-                                weekdays.map((day, index) => (
-                                    <th scope="col" key={index}>{day}</th>
-                                ))
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rostersEachPage.map((roste, index) => (
-                            <tr key={index}>
-                                <td>{roste.name}</td>
-                                {weekdays.map((day, index) => (
-                                    <td>
-                                        <div className="d-flex flex-column">
-                                            <label>{roste.date === weekdays[index] ? roste.shiftStart + " - " + roste.shiftEnd : ""}</label>
-                                            <label>
-                                                {roste.date === weekdays[index] && roste.break ?
-                                                    (<label className="bg-primary text-white m-1 p-1">
-                                                        <i class="bi bi-cup-fill p-1"></i>
-                                                        break: {roste.breakStart.split(' ')[0]} - {roste.breakEnd}
-                                                    </label>)
-                                                    : ""
-                                                }
-                                            </label>
-                                        </div>
-                                    </td>
-                                ))}
+                    <table className="table table-bordered p-0" style={{ minWidth: "800px" }} >
+                        <thead >
+                            <tr style={{ position: "sticky", top: "0" }}>
+                                <th style={{ position: "sticky", top: "0", left: "0" }}>Date</th>
+                                {
+                                    weekdays.map((day, index) => (
+                                        <th scope="col" key={index}>{day.slice(5,)}</th>
+                                    ))
+                                }
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {rostersEachPage.map((roste, index) => (
+                                <tr key={index}>
+                                    <th style={{ position: "sticky", top: "0", left: "0" }}>{roste.name}</th>
+                                    {weekdays.map((day, index1) => (
+                                        <td key={index1} onClick={() => roste.date === weekdays[index1] && roste.break ? "" : setCreateOpen(true)}>
+                                            <div className="d-flex flex-column">
+                                                <label style={{fontSize:"12px"}}>{roste.date === weekdays[index1] ? roste.shiftStart + " - " + roste.shiftEnd : ""}</label>
+                                                <label>
+                                                    {roste.date === weekdays[index1] && roste.break ?
+                                                        (<label className="bg-primary text-white p-1" style={{fontSize:"12px"}}>
+                                                            <i className="bi bi-cup-fill p-1"></i>
+                                                            break: {roste.breakStart.split(' ')[0]} - {roste.breakEnd}
+                                                        </label>)
+                                                        : ""
+                                                    }
+                                                </label>
+                                            </div>
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>

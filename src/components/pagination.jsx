@@ -1,4 +1,5 @@
 export const clientSlicer = (clients) => {
+
   const clientList = [];
   const m = clients.length;
   if (m < 10) {
@@ -12,7 +13,7 @@ export const clientSlicer = (clients) => {
       clientList.push(clients.slice(i * 10, i * 10 + 10));
     }
     if (group * 10 < m) {
-      clientList.push([clients[(group * 10 - 2, m - 1)]]);
+      clientList.push(clients.slice(group * 10-1, m - 1));
     }
     return clientList;
   }

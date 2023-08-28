@@ -1,13 +1,12 @@
 import React from 'react'
-const Update = ({ client, setFirstName,
+const WorkerUpdate = ({ client, setFirstName,
   setLastName,
-
-  phonenumber,
   firstName,
-  lastName, address, setAddress, setEmail, setPhonenumber, setOpen }) => {
+  lastName, email, phonenumber, setEmail, setPhonenumber, setOpen }) => {
+    console.log('cloinet',client)
   const updateClient = (client, setOpen,
     firstName,
-    lastName, address, phonenumber) => {
+    lastName, email, phonenumber) => {
 
     // update client service
 
@@ -16,10 +15,8 @@ const Update = ({ client, setFirstName,
   };
   const updateModal = (client, setFirstName,
     setLastName,
-    address,
-    phonenumber,
     firstName,
-    lastName, setAddress, setPhonenumber, setOpen) => (
+    lastName, email, phonenumber, setEmail, setPhonenumber, setOpen) => (
     <div className='bg-black w-100 h-100 bg-opacity-75 pt-5' style={{ position: "absolute", top: "0", zIndex: 1 }}>
       <div className="bg-white w-50 mx-auto p-5">
         <form
@@ -28,7 +25,7 @@ const Update = ({ client, setFirstName,
             e.preventDefault();
             updateClient(client, setOpen,
               firstName,
-              lastName, address, phonenumber);
+              lastName, email, phonenumber);
           }}
         >
           <h5 >
@@ -75,15 +72,15 @@ const Update = ({ client, setFirstName,
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="address" className="form-label">
-              address
+            <label htmlFor="email" className="form-label">
+              email
             </label>
             <input
               className="form-control"
-              value={client?.address}
+              value={client?.email}
               onChange={(e) => {
                 e.preventDefault();
-                setAddress(e.target.value);
+                setEmail(e.target.value);
               }}
             />
           </div>
@@ -110,10 +107,8 @@ const Update = ({ client, setFirstName,
     <div>
       {updateModal(client, setFirstName,
         setLastName,
-        address, setAddress,
-        phonenumber,
         firstName,
-        lastName, setPhonenumber, setOpen)}
+        lastName,email, phonenumber, setEmail, setPhonenumber, setOpen)}
     </div>)
 }
-export default Update
+export default WorkerUpdate

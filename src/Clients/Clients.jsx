@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { dummyclient } from "../dummy";
+// import { dummyclient } from "../dummy";
 import Navbar from "../components/Navbar/Navbar";
 import "./Client.css";
 import { api } from "../api";
@@ -11,14 +11,19 @@ import Update from "../modals/Update";
 import Spinner from "../components/spinner";
 
 const Clients = () => {
-  const [allClients, setAllClients] = useState();
   // after fetch clients data, replace dummyclient
   const [dummyclients, setDummyclients] = useState();
 
-  const [name, setName] = useState();
-  const [phonenumber, setPhonenumber] = useState();
-  const [address, setAddress] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phonenumber, setPhonenumber] = useState("");
+  const [address, setAddress] = useState("");
+  
   const [client, setClient] = useState();
+
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [createOpen, setCreateOpen] = useState(false)
+  const [updateOpen, setUpdatepen] = useState(false)
 
   const [clientsEachPage, setClientsEachPage] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,10 +42,9 @@ const Clients = () => {
   const fetchClients = async () => {
     // fetch data
     try {
-      const res = await fetch(api + "/clients");
+      const res = await fetch(api + "/clients/");
       const data = await res.json();
       // set all Clients
-      setAllClients(data)
       // set page sliced clients
       setDummyclients(clientSlicer(data));
       // set first page clients
@@ -55,132 +59,142 @@ const Clients = () => {
   useEffect(() => {
     fetchClients();
   }, []);
-
   return (
-    <div>
-      <Navbar />
-      {allClients &&
-        <Create
-          setAddress={setAddress}
-          allclients={allClients}
-          setName={setName}
-          setDummyclients={setDummyclients}
-          setPhonenumber={setPhonenumber}
-          name={name}
-          phonenumber={phonenumber}
+    <>
+      <div>
+        {createOpen && 
+          <Create
+            setAddress={setAddress}
+            setFirstName={setFirstName}
+            setLastName={setLastName}
+            setPhonenumber={setPhonenumber}
+            firstName={firstName}
+            lastName={lastName}
+            phonenumber={phonenumber}
+            address={address}
+            setOpen={setCreateOpen}
+          />}
+        <Navbar />
+        {deleteOpen && <Delete routeName="/clients/" client={client} setOpen={setDeleteOpen} />}
+        {updateOpen && <Update client={client} setFirstName={setFirstName}
+          setLastName={setLastName}
           address={address}
-        />}
-      <Delete client={client} />
-      <Update client={client} setName={setName} setAddress={setAddress} setPhonenumber={setPhonenumber} />
-      <div className="w-75 text-start mx-auto mt-5">
-        <div id="second_nav_out" className="d-flex justify-content-between ">
-          <label className="fs-3">Clients</label>
-          <form
-            className="d-flex"
-            id="client-search-form"
-            onSubmit={searchClient}
-          >
-            <input
-              className="form-control mr-1"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <select className="mx-1">
-              <option value="-">-Select-</option>
-              <option value="name">name</option>
-              <option value="phone_number">phone number</option>
-            </select>
-            <button className="btn btn-outline-success" type="submit">
-              Search
+          phonenumber={phonenumber}
+          firstName={firstName}
+          lastName={lastName} setAddress={setAddress} setPhonenumber={setPhonenumber} setOpen={setUpdatepen} />}
+        <div className="w-75  mx-auto mt-5">
+          <div id="second_nav_out">
+            <label className="fs-3">Clients</label>
+            <form
+              className="d-flex p-0"
+              onSubmit={searchClient}
+            >
+              <input
+                className="form-control mr-1"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <select className="mx-1">
+                <option value="-">-Select-</option>
+                <option value="name">name</option>
+                <option value="phone_number">phone number</option>
+              </select>
+              <button className="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+            <button
+              className="btn btn-primary "
+              onClick={(e) => {
+                e.preventDefault();
+                setCreateOpen(true)
+              }}
+            >
+              + Add New Clients
             </button>
-          </form>
-          <button
-            className="btn btn-primary "
-            data-bs-toggle="modal"
-            data-bs-target="#clientAddModal"
-          >
-            + Add New Clients
-          </button>
+          </div>
+          <hr />
         </div>
-        <hr />
-      </div>
-      {
-        clientsEachPage ?(
-          <>
-            <table className="table w-75 mx-auto">
-              <thead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Phone Number</th>
-                  <th scope="col">Worker</th>
-                  <th scope="col">Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {clientsEachPage.map((client, index) => (
-                  <tr key={index}>
-                    <td>
-                      <Link to={`/clients/${client._id}`}>
-                        {client.firstName}
-                      </Link>
-                    </td>
-                    <td>{client.address}</td>
-                    <td>{client.phoneNumber}</td>
-                    <td>
-                      <Link to={`/workers/${client._id}`}>View</Link>
-                    </td>
-                    <td>
-                      <Link to={`/notes/${client._id}`}>Notes</Link>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-outline-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#clientUpdateModal"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClient(client);
-                        }}
-                      >
-                        Update
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-outline-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#clientDeleteModal"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClient(client);
-                        }}
-                      >
-                        x
-                      </button>
-                    </td>
+        {
+          clientsEachPage ? (
+            <div className=" w-75 mx-auto border table-responsive">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Worker</th>
+                    <th scope="col">Notes</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            {/* pagination */}
-          <div className="w-75 mx-auto">
+                </thead>
+                <tbody>
+                  {clientsEachPage.map((client, index) => (
+                    <tr key={index}>
+                      <td>
+                        <Link to={`/clients/${client._id}`}>
+                          {client.firstName}
+                        </Link>
+                      </td>
+                      <td>{client.address}</td>
+                      <td>{client.phoneNumber}</td>
+                      <td>
+                        <Link to={`/workers/${client._id}`}>View</Link>
+                      </td>
+                      <td>
+                        <Link to={`/notes/${client._id}`}>Notes</Link>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setUpdatepen(true)
+                            setClient(client);
+                          }}
+                        >
+                          Update
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setDeleteOpen(true)
+                            setClient(client);
+                          }}
+                        >
+                          x
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {/* pagination */}
+              <div className="w-75 mx-auto">
 
-            <Pagination
-              dummyclients={dummyclients}
-              clientPage={clientPage}
-              setClientsEachPage={setClientsEachPage}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            /></div>
-          </>
-        )
-          :(
-            <Spinner />
-        )
-      }
-    </div>
+                <Pagination
+                  dummyclients={dummyclients}
+                  clientPage={clientPage}
+                  setClientsEachPage={setClientsEachPage}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                /></div>
+            </div>
+          )
+            : (
+              <Spinner />
+            )
+        }
+
+      </div>
+
+
+
+    </>
   );
 };
 export default Clients;

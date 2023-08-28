@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{position:"inherit"}}>
       <div className="container-fluid">
         <Link to="/" className="navbar-brand">
           Support Hero
@@ -63,8 +63,8 @@ const Navbar = () => {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <Link to="/teams" className="dropdown-item" href="#">
-                    Teams
+                  <Link to="/notes" className="dropdown-item" href="#">
+                    Notes
                   </Link>
                 </li>
               </ul>
