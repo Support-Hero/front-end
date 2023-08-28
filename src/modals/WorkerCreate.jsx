@@ -1,38 +1,75 @@
-import React from 'react'
-const Update = ({ client, setFirstName,
-  setLastName,
-
-  phonenumber,
-  firstName,
-  lastName, address, setAddress, setEmail, setPhonenumber, setOpen }) => {
-  const updateClient = (client, setOpen,
+import React from "react";
+import { api } from "../api";
+const WorkerCreate = (
+  {
     firstName,
-    lastName, address, phonenumber) => {
+    lastName,
+    phonenumber,
+    email,
+    setEmail,
+    setFirstName,
+    setLastName,
+    setPhonenumber,
+    setOpen }
+) => {
 
-    // update client service
-
-    //close modal
+  // create client api fetch
+  const addnewClient = async (
+    firstName,
+    lastName,
+    phonenumber,
+    email,
+    setOpen,
+  ) => {
+    // post data
+    const res = await fetch(api + "/users/", {
+      method: "POST",
+      body: JSON.stringify(
+        {firstName:firstName,
+          lastName:lastName,
+          phoneNumber:phonenumber,
+          email:email,
+          password: '12345678',
+          isManager: false
+        }
+      ),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    window.location.reload()
+    // reset all input
     setOpen(false)
   };
-  const updateModal = (client, setFirstName,
-    setLastName,
-    address,
-    phonenumber,
-    firstName,
-    lastName, setAddress, setPhonenumber, setOpen) => (
+
+  const addM = (
+    email,
+        phonenumber,
+        firstName,
+        lastName,
+        setEmail,
+        setPhonenumber,
+        setFirstName,
+        setLastName,
+    setOpen) => (
     <div className='bg-black w-100 h-100 bg-opacity-75 pt-5' style={{ position: "absolute", top: "0", zIndex: 1 }}>
       <div className="bg-white w-50 mx-auto p-5">
         <form
           className="p-5"
           onSubmit={(e) => {
             e.preventDefault();
-            updateClient(client, setOpen,
+            addnewClient(
               firstName,
-              lastName, address, phonenumber);
+              lastName,
+              phonenumber,
+              email,
+              setOpen,
+            );
+
           }}
         >
           <h5 >
-            Update Client
+            Add Client
           </h5>
           <hr />
           <div className="mb-3">
@@ -40,7 +77,8 @@ const Update = ({ client, setFirstName,
               first name
             </label>
             <input
-              value={client?.firstName}
+            required
+              value={firstName}
               onChange={(e) => {
                 e.preventDefault();
                 setFirstName(e.target.value);
@@ -53,7 +91,8 @@ const Update = ({ client, setFirstName,
               last name
             </label>
             <input
-              value={client?.firstName}
+            required
+              value={lastName}
               onChange={(e) => {
                 e.preventDefault();
                 setLastName(e.target.value);
@@ -62,37 +101,44 @@ const Update = ({ client, setFirstName,
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="phone_number" className="form-label">
+            <label htmlFor="phonenumber" className="form-label">
               phone number
             </label>
             <input
-              value={client?.phoneNumber}
+            required
+            
+              className="form-control"
+              value={phonenumber}
               onChange={(e) => {
                 e.preventDefault();
                 setPhonenumber(e.target.value);
               }}
-              className="form-control"
             />
           </div>
           <div className="mb-3">
             <label htmlFor="address" className="form-label">
-              address
+              email
             </label>
             <input
+            type="email"
+            required
               className="form-control"
-              value={client?.address}
+              value={email}
               onChange={(e) => {
                 e.preventDefault();
-                setAddress(e.target.value);
+                setEmail(e.target.value);
               }}
             />
           </div>
           <div className="d-flex justify-content-md-between">
             <button
-              type="button"
               className="btn btn-secondary"
-              onClick={e => {
-                e.preventDefault()
+              onClick={(e) => {
+                e.preventDefault();
+                setFirstName();
+                setLastName();
+                setEmail();
+                setPhonenumber();
                 setOpen(false)
               }}
             >
@@ -104,16 +150,22 @@ const Update = ({ client, setFirstName,
           </div>
         </form>
       </div>
+
     </div>
-  );
+  )
   return (
-    <div>
-      {updateModal(client, setFirstName,
-        setLastName,
-        address, setAddress,
+    <>
+      {addM(
+        email,
         phonenumber,
         firstName,
-        lastName, setPhonenumber, setOpen)}
-    </div>)
-}
-export default Update
+        lastName,
+        setEmail,
+        setPhonenumber,
+        setFirstName,
+        setLastName,
+        setOpen)}
+    </>
+  );
+};
+export default WorkerCreate;

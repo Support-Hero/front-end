@@ -1,62 +1,58 @@
 import React from 'react'
 import { api } from "../api";
 
-const Delete = (client)=>{
-    const deleteClient = async(id) => {
-        // delete client
-        try {
-          const res = await fetch(api + "/clients/"+id,{
-            method: 'DELETE',
-          });
-          // const data = await res.json();
-          window.location.reload()
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
+const Delete = ({ client, setOpen, routeName }) => {
+  const deleteClient = async (id, setOpen,routeName) => {
+    // delete client
+    try {
+      const res = await fetch(api + routeName + id, {
+        method: 'DELETE',
+      });
+      setOpen(false)
+      // const data = await res.json();
+      window.location.reload()
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
-    const deleteModal = (client)=>(
-        <div
-          className="modal fade"
-          id="clientDeleteModal"
-          tabIndex="-1"
-          aria-labelledby="clientDeleteModal"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content p-5">
-              <h5 className="modal-title" id="clientDeleteModal">
-                Delete Client
-              </h5>
-              <hr />
-              Are you sure to delete this record?
-              <div className="d-flex justify-content-md-between mt-3">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  data-bs-dismiss="modal"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    deleteClient(client.client._id);
-                  }}
-                >
-                  Yes{" "}
-                </button>
-              </div>
-            </div>
-          </div>
+  const deleteM = (client, setOpen,routeName) => (
+    <div className='bg-black w-100 h-100 bg-opacity-75 pt-5' style={{ position: "absolute",top:"0", zIndex: 1 }}>
+      <div className="bg-white w-50 mx-auto p-5">
+        <h5 >
+          Delete Client
+        </h5>
+        <hr />
+        Are you sure to delete this record?
+        <div className="d-flex justify-content-md-between mt-3">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={e=>{
+              e.preventDefault()
+              setOpen(false)
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={(e) => {
+              e.preventDefault();
+              deleteClient(client._id, setOpen,routeName);
+            }}
+          >
+            Yes{" "}
+          </button>
         </div>
-      );
-    return (
-        <div>
-            {deleteModal(client)}
-        </div>)
+      </div>
+
+    </div>
+  )
+  return (
+    <>
+      { deleteM(client, setOpen,routeName)}
+    </>)
 }
 export default Delete

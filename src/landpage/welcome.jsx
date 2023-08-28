@@ -21,12 +21,12 @@ const Welcome = () => {
       title: "rosters",
       description: "worker information, crud",
     },
-    {
-      imsrc: "bi-microsoft-teams",
-      bgcolor: "info ",
-      title: "teams",
-      description: "worker information, crud",
-    },
+    // {
+    //   imsrc: "bi-microsoft-teams",
+    //   bgcolor: "info ",
+    //   title: "teams",
+    //   description: "worker information, crud",
+    // },
     {
       imsrc: "bi-microsoft-teams",
       bgcolor: "danger",

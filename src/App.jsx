@@ -6,11 +6,10 @@ import Workers from "./Workers/Workers";
 import Worker from "./Workers/Worker";
 import Clients from "./Clients/Clients";
 import Client from "./Clients/Client";
-import Note_4Client from "./Notes_record/Note_4Client";
-import NotesRecord from "./Notes_record/NotesRecord";
 import CreateNotes from './createnotes/createNotes';
 import CaseNoteApproval from "./CaseNoteApproval/casenoteapproval";
 import WorkerDashboard from "./WorkerDashboard/WorkerDashboard";
+import Roster from "./rosters/Roster";
 
 
 function App() {
@@ -23,11 +22,10 @@ function App() {
       <Route path="/workers/:id" element={<Worker />} />
       <Route path="/clients" element={<Clients />} />
       <Route path="/clients/:id" element={<Client />} />
-      <Route path="/notes" element={<NotesRecord />} />
-      <Route path="/notes/:id" element={<Note_4Client />} />
       <Route path="/create-notes" element={ <CreateNotes />} />
       <Route path="/case-note-approval" element={ <CaseNoteApproval />} />
       <Route path="/worker-dashboard" element={ <WorkerDashboard />} />
+      <Route path="/rosters" element={ <Roster />} />
     </Routes>
   )
 }
