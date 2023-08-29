@@ -1,19 +1,34 @@
 import React from 'react'
-const WorkerUpdate = ({ client, setFirstName,
+import { api } from "../api";
+
+const WorkerUpdate = ({ id,setFirstName,
   setLastName,
   firstName,
   lastName, email, phonenumber, setEmail, setPhonenumber, setOpen }) => {
-    console.log('cloinet',client)
-  const updateClient = (client, setOpen,
+  const updateClient = async ( setOpen,
     firstName,
-    lastName, email, phonenumber) => {
+    lastName, email, phonenumber,id) => {
 
-    // update client service
-
+    // update service
+    const res = await fetch(api + "/users/" + id, {
+      method: "PUT",
+      body: JSON.stringify(
+        {
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phonenumber,
+          email: email
+        }
+      ),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    window.location.reload()
     //close modal
     setOpen(false)
   };
-  const updateModal = (client, setFirstName,
+  const updateModal = (id, setFirstName,
     setLastName,
     firstName,
     lastName, email, phonenumber, setEmail, setPhonenumber, setOpen) => (
@@ -23,13 +38,13 @@ const WorkerUpdate = ({ client, setFirstName,
           className="p-5"
           onSubmit={(e) => {
             e.preventDefault();
-            updateClient(client, setOpen,
+            updateClient( setOpen,
               firstName,
-              lastName, email, phonenumber);
+              lastName, email, phonenumber,id);
           }}
         >
-          <h5 >
-            Update Client
+          <h5 aria-label="Update Worker">
+            Update Worker
           </h5>
           <hr />
           <div className="mb-3">
@@ -37,7 +52,7 @@ const WorkerUpdate = ({ client, setFirstName,
               first name
             </label>
             <input
-              value={client?.firstName}
+              value={firstName}
               onChange={(e) => {
                 e.preventDefault();
                 setFirstName(e.target.value);
@@ -50,7 +65,7 @@ const WorkerUpdate = ({ client, setFirstName,
               last name
             </label>
             <input
-              value={client?.firstName}
+              value={lastName}
               onChange={(e) => {
                 e.preventDefault();
                 setLastName(e.target.value);
@@ -63,7 +78,7 @@ const WorkerUpdate = ({ client, setFirstName,
               phone number
             </label>
             <input
-              value={client?.phoneNumber}
+              value={phonenumber}
               onChange={(e) => {
                 e.preventDefault();
                 setPhonenumber(e.target.value);
@@ -77,7 +92,7 @@ const WorkerUpdate = ({ client, setFirstName,
             </label>
             <input
               className="form-control"
-              value={client?.email}
+              value={email}
               onChange={(e) => {
                 e.preventDefault();
                 setEmail(e.target.value);
@@ -104,11 +119,11 @@ const WorkerUpdate = ({ client, setFirstName,
     </div>
   );
   return (
-    <div>
-      {updateModal(client, setFirstName,
+    <>
+      {updateModal(id, setFirstName,
         setLastName,
         firstName,
-        lastName,email, phonenumber, setEmail, setPhonenumber, setOpen)}
-    </div>)
+        lastName, email, phonenumber, setEmail, setPhonenumber, setOpen)}
+    </>)
 }
 export default WorkerUpdate

@@ -1,7 +1,8 @@
 import React from "react";
 import "./login.css";
-import Body from "../components/body/Body";
 import { api } from "../api";
+import Navbar from "../components/Navbar/Navbar";
+import Bottom from "../components/Bottom/Bottom";
 const Login = ({ navigate }) => {
 
   // login request
@@ -26,14 +27,14 @@ const Login = ({ navigate }) => {
   };
   
   const body = (
-    <>
-      <div className="d-flex justify-content-center align-items-center w-100" >
+    <div className="container" >
+      <div className="d-flex justify-content-center align-items-center" >
         <img
           src="https://media.discordapp.net/attachments/1138692622467211358/1142424320388378674/image.png"
-          style={{ width: "40%", objectFit: "contain" }}
+          style={{ width: "50%", objectFit: "contain" }}
           id="logo"
         />
-        <form onSubmit={submit} id="loginbox" style={{ marginRight: "50px" }}>
+        <form onSubmit={submit} id="loginbox">
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
               Email address
@@ -73,18 +74,26 @@ const Login = ({ navigate }) => {
         </form>
         
       </div>
-      <div className="d-flex w-100 ">
+      <div className="d-flex">
         <img
           id="image1"
-          src="https://media.istockphoto.com/id/1268410371/vector/disabled-people-help-and-diversity.jpg?s=612x612&w=0&k=20&c=7I-mbaXwfVtwXvwDlm6pl9EomlWBOZiip9Wb6MxvkK0="
+          src="/images/login_img1.jpg"
         />
         <img
           id="image2"
-          src="https://www.reachfortraining.com.au/wp-content/uploads/2023/04/home-community-1.2-1.jpg"
+          src="/images/login_img2.jpg"
         />
       </div>
-    </>
+    </div>
   );
-  return <Body body={body} />;
+  return(
+    <div style={{ minHeight: "100vh", position: "relative" }} >
+      <div >
+        <Navbar />
+        {body}
+      </div>
+      <Bottom />
+    </div>
+  );
 };
 export default Login;
