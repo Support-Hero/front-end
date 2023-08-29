@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { dummyclient } from "../dummy";
-import Navbar from "../components/Navbar/Navbar";
 import "./Client.css";
 import { api } from "../api";
 import Pagination, { clientSlicer } from "../components/pagination";
@@ -9,6 +7,7 @@ import Delete from "../modals/Delete";
 import Create from "../modals/Create";
 import Update from "../modals/Update";
 import Spinner from "../components/spinner";
+import Body from "../components/body/Body";
 
 const Clients = () => {
   // after fetch clients data, replace dummyclient
@@ -18,7 +17,7 @@ const Clients = () => {
   const [lastName, setLastName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [address, setAddress] = useState("");
-  
+  const [id, setId] = useState()
   const [client, setClient] = useState();
 
   const [deleteOpen, setDeleteOpen] = useState(false)
@@ -59,66 +58,64 @@ const Clients = () => {
   useEffect(() => {
     fetchClients();
   }, []);
-  return (
+  const body = (
     <>
-      <div>
-        {createOpen && 
-          <Create
-            setAddress={setAddress}
-            setFirstName={setFirstName}
-            setLastName={setLastName}
-            setPhonenumber={setPhonenumber}
-            firstName={firstName}
-            lastName={lastName}
-            phonenumber={phonenumber}
-            address={address}
-            setOpen={setCreateOpen}
-          />}
-        <Navbar />
-        {deleteOpen && <Delete routeName="/clients/" client={client} setOpen={setDeleteOpen} />}
-        {updateOpen && <Update client={client} setFirstName={setFirstName}
+      {createOpen &&
+        <Create
+          setAddress={setAddress}
+          setFirstName={setFirstName}
           setLastName={setLastName}
-          address={address}
-          phonenumber={phonenumber}
+          setPhonenumber={setPhonenumber}
           firstName={firstName}
-          lastName={lastName} setAddress={setAddress} setPhonenumber={setPhonenumber} setOpen={setUpdatepen} />}
-        <div className="w-75  mx-auto mt-5">
-          <div id="second_nav_out">
-            <label className="fs-3">Clients</label>
-            <form
-              className="d-flex p-0"
-              onSubmit={searchClient}
-            >
-              <input
-                className="form-control mr-1"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <select className="mx-1">
-                <option value="-">-Select-</option>
-                <option value="name">name</option>
-                <option value="phone_number">phone number</option>
-              </select>
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-            <button
-              className="btn btn-primary "
-              onClick={(e) => {
-                e.preventDefault();
-                setCreateOpen(true)
-              }}
-            >
-              + Add New Clients
+          lastName={lastName}
+          phonenumber={phonenumber}
+          address={address}
+          setOpen={setCreateOpen}
+        />}
+      {deleteOpen && <Delete routeName="/clients/" client={client} setOpen={setDeleteOpen} />}
+      {updateOpen && <Update id={id} setFirstName={setFirstName}
+        setLastName={setLastName}
+        address={address}
+        phonenumber={phonenumber}
+        firstName={firstName}
+        lastName={lastName} setAddress={setAddress} setPhonenumber={setPhonenumber} setOpen={setUpdatepen} />}
+      <div className="w-75  mx-auto mt-5"  style={{ marginBottom: "100px" }}>
+        <div id="second_nav_out">
+          <label className="fs-3">Clients</label>
+          <form
+            className="d-flex p-0 m-0"
+            onSubmit={searchClient}
+          >
+            <input
+              className="form-control mr-1"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <select className="mx-1">
+              <option value="-">-Select-</option>
+              <option value="name">name</option>
+              <option value="phone_number">phone number</option>
+            </select>
+            <button className="btn btn-outline-success" type="submit">
+              Search
             </button>
-          </div>
-          <hr />
+          </form>
+          <button
+            className="btn btn-primary "
+            onClick={(e) => {
+              e.preventDefault();
+              setCreateOpen(true)
+            }}
+          >
+            + Add New Clients
+          </button>
         </div>
+        <hr />
+
         {
           clientsEachPage ? (
-            <div className=" w-75 mx-auto border table-responsive">
+            <div className=" mx-auto border table-responsive">
               <table className="table">
                 <thead>
                   <tr>
@@ -150,8 +147,12 @@ const Clients = () => {
                           className="btn btn-outline-primary"
                           onClick={(e) => {
                             e.preventDefault();
+                            setFirstName(client.firstName)
+                            setLastName(client.lastName)
+                            setPhonenumber(client.phoneNumber)
+                            setAddress(client.address)
+                            setId(client._id)
                             setUpdatepen(true)
-                            setClient(client);
                           }}
                         >
                           Update
@@ -163,7 +164,7 @@ const Clients = () => {
                           onClick={(e) => {
                             e.preventDefault();
                             setDeleteOpen(true)
-                            setClient(client);
+                            setClient(client)
                           }}
                         >
                           x
@@ -174,27 +175,25 @@ const Clients = () => {
                 </tbody>
               </table>
               {/* pagination */}
-              <div className="w-75 mx-auto">
 
-                <Pagination
-                  dummyclients={dummyclients}
-                  clientPage={clientPage}
-                  setClientsEachPage={setClientsEachPage}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                /></div>
+              <Pagination
+                dummyclients={dummyclients}
+                clientPage={clientPage}
+                setClientsEachPage={setClientsEachPage}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           )
             : (
               <Spinner />
             )
         }
-
       </div>
-
-
-
     </>
+  )
+  return (
+    <Body body={body} />
   );
 };
 export default Clients;

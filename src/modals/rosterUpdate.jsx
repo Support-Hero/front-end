@@ -1,21 +1,49 @@
 import React from 'react'
-import './rostercreate.css'
-const RosterCreate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
-    const createshiftModal = (setWorkerName, workerName, date, setDate,setOpen) => (
-        <div className='bg-black w-100 bg-opacity-75 pt-5' style={{height:"120vh", position: "absolute", top: "0", zIndex: 1 }}>
-            <div className="bg-white mx-auto p-5" id='modal-box'>
+import { api } from "../api";
+// props
+// id, setWorkerName,
+// setDate, setShiftStart, setShiftEnd, setBreakStart, setBreakEnd,
+// workerName, date, shiftStart, shiftEnd, breakStart, breakEnd,
+// setOpen
+const RosterUpdate = ({setOpen, workerName, setWorkerName, date, setDate}) => {
+    const updateRoster = async (setOpen,
+        workerName, date,
+        shiftStart, shiftEnd, breakStart, breakEnd, id) => {
+        // update service
+        // const res = await fetch(api + "/rosters/"+id, {
+        //   method: "PUT",
+        //   body: JSON.stringify(
+        //     {workerName:workerName,
+        //         date:date,
+        //         shiftStart:shiftStart,
+        //         shiftEnd:shiftEnd,
+        //         breakStart:breakStart,
+        //         breakEnd:breakEnd
+        //     }
+        //   ),
+        //   headers: {
+        //     'Content-type': 'application/json'
+        //   }
+        // })
+        // window.location.reload()
+        //close modal
+        setOpen(false)
+    };
+    const updateModal = (setOpen,workerName, setWorkerName, date, setDate) => (
+        <div className='bg-black w-100 h-100 bg-opacity-75 pt-5' style={{ position: "absolute", top: "0", zIndex: 1 }}>
+            <div className="bg-white w-50 mx-auto p-5">
                 <form
                     className="p-5"
                     onSubmit={(e) => {
                         e.preventDefault();
-                        addnewShift(
-                            setOpen,
+                        updateRoster(setOpen,
                             workerName, date,
-                        );
+                            shiftStart, shiftEnd, breakStart, breakEnd, id);
                     }}
                 >
-                    <h5 > Add Shift</h5>
-                    <hr />
+                    <h5 aria-label='Update Client'>
+                        Update Client
+                    </h5>
                     <div className="mb-3">
                         <label htmlFor="firstname" className="form-label"> worker name:</label>
                         <input
@@ -44,9 +72,9 @@ const RosterCreate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                         />
                     </div>
                     <div className="d-flex mb-3 ">
-                        <div className="d-flex flex-column " style={{marginRight:"20px"}}>
+                        <div className="d-flex flex-column " style={{ marginRight: "20px" }}>
                             <label htmlFor="phonenumber" className="form-label">
-                               Shift Start
+                                Shift Start
                             </label>
                             <input required
                                 className="form-control"
@@ -60,12 +88,12 @@ const RosterCreate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                         </div>
                         <div className="d-flex flex-column">
                             <label htmlFor="address" className="form-label">
-                               Shift End
+                                Shift End
                             </label>
                             <input required
                                 className="form-control"
                                 type="time"
-                                    //   value={shiftEnd}
+                                //   value={shiftEnd}
                                 onChange={(e) => {
                                     e.preventDefault();
                                     // setShiftEnd(e.target.value);
@@ -74,9 +102,9 @@ const RosterCreate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                         </div>
                     </div>
                     <div className="d-flex mb-3">
-                        <div className="d-flex flex-column"  style={{marginRight:"20px"}}>
+                        <div className="d-flex flex-column" style={{ marginRight: "20px" }}>
                             <label htmlFor="phonenumber" className="form-label">
-                               Break Start
+                                Break Start
                             </label>
                             <input
                                 className="form-control"
@@ -90,7 +118,7 @@ const RosterCreate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                         </div>
                         <div className="d-flex flex-column">
                             <label htmlFor="address" className="form-label">
-                               Break End
+                                Break End
                             </label>
                             <input required
                                 className="form-control"
@@ -115,17 +143,23 @@ const RosterCreate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                         >
                             Close
                         </button>
+                        <button type="submit" className="btn btn-danger" onClick={(e) => {
+                                e.preventDefault();
+                                setOpen(false)
+                            }}>
+                            Delete{" "}
+                        </button>
                         <button type="submit" className="btn btn-primary">
-                            Save{" "}
+                            Update{" "}
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-    )
+    );
     return (
         <>
-            {createshiftModal(setWorkerName, workerName, date, setDate,setOpen)}
+            {updateModal(setOpen,workerName, setWorkerName, date, setDate)}
         </>)
 }
-export default RosterCreate
+export default RosterUpdate

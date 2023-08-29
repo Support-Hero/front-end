@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
 import { api } from "../api";
 import { useParams } from "react-router-dom";
 import Spinner from '../components/spinner'
+import Body from '../components/body/Body'
 
 const Client = () => {
   const { id } = useParams();
@@ -12,7 +12,6 @@ const Client = () => {
     try {
       const res = await fetch(api + "/clients/" + id);
       const data = await res.json();
-      console.log("id", data);
       // set Client
       setClient(data);
     } catch (error) {
@@ -22,11 +21,10 @@ const Client = () => {
   useEffect(() => {
     fetchClient(id);
   }, []);
-  return (
-    <div>
-      <Navbar />
-      {client ? (
-        <div className="w-75 text-start mx-auto mt-5">
+  const body=(
+    <>
+    {client ? (
+        <div className="w-75 text-start mx-auto mt-5" style={{paddingBottom:"100px"}}>
           <label className="fs-3">Clients</label>
           <hr />
           <div className="container">
@@ -51,8 +49,8 @@ const Client = () => {
               </div>
             </div>
             <div className="row border-bottom py-3">
-              <div class="col ">Progress Notes :</div>
-              <div class="col">
+              <div className="col ">Progress Notes :</div>
+              <div className="col">
                 <button>view all</button>
               </div>
             </div>
@@ -89,7 +87,7 @@ const Client = () => {
               </div>
             </div>
             <div className="row fs-3 py-3">Support Worker Team</div>
-            <div className="row border-bottom py-3">
+            <div className="row py-3">
               <div className="d-flex">
                 {client.assignedWorkers.map((worker, index) => (
                   <div className="d-flex flex-column align-items-center px-5">
@@ -106,8 +104,10 @@ const Client = () => {
         </div>
       ) : (
         <Spinner />
-      )}
-    </div>
+      )}</>
+  )
+  return (
+    <Body body={body} />
   );
 };
 export default Client;

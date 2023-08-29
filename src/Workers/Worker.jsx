@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar/Navbar";
 import { api } from "../api";
 import { useParams } from "react-router-dom";
 import Spinner from '../components/spinner'
+import Body from "../components/body/Body";
 
 const Worker = () => {
   const { id } = useParams();
@@ -21,9 +22,8 @@ const Worker = () => {
   useEffect(() => {
     fetchWorker(id);
   }, []);
-  return (
-    <div>
-      <Navbar />
+  const body=(
+<>
       {worker ? (
         <div className="w-75 text-start mx-auto mt-5">
           <label className="fs-3">Workers</label>
@@ -66,7 +66,10 @@ const Worker = () => {
       ) : (
         <Spinner />
       )}
-    </div>
+    </>
+  )
+  return (
+    <Body body={body} />
   );
 };
 export default Worker;

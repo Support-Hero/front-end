@@ -19,8 +19,8 @@ const Delete = ({ client, setOpen, routeName }) => {
   const deleteM = (client, setOpen,routeName) => (
     <div className='bg-black w-100 h-100 bg-opacity-75 pt-5' style={{ position: "absolute",top:"0", zIndex: 1 }}>
       <div className="bg-white w-50 mx-auto p-5">
-        <h5 >
-          Delete Client
+        <h5 aria-label='Delete'>
+          Delete
         </h5>
         <hr />
         Are you sure to delete this record?

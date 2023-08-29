@@ -1,20 +1,34 @@
 import React from 'react'
-const Update = ({ client, setFirstName,
-  setLastName,
+import { api } from "../api";
 
+const Update = ({id,  setFirstName,
+  setLastName,
   phonenumber,
   firstName,
-  lastName, address, setAddress, setEmail, setPhonenumber, setOpen }) => {
-  const updateClient = (client, setOpen,
+  lastName, address, setAddress, setPhonenumber, setOpen }) => {
+  const updateClient =async ( setOpen,
     firstName,
-    lastName, address, phonenumber) => {
+    lastName, address, phonenumber,id) => {
 
     // update client service
-
+    const res = await fetch(api + "/clients/"+id, {
+      method: "PUT",
+      body: JSON.stringify(
+        {firstName:firstName,
+          lastName:lastName,
+          phoneNumber:phonenumber,
+          address:address
+        }
+      ),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    window.location.reload()
     //close modal
     setOpen(false)
   };
-  const updateModal = (client, setFirstName,
+  const updateModal = (id, setFirstName,
     setLastName,
     address,
     phonenumber,
@@ -26,12 +40,12 @@ const Update = ({ client, setFirstName,
           className="p-5"
           onSubmit={(e) => {
             e.preventDefault();
-            updateClient(client, setOpen,
+            updateClient( setOpen,
               firstName,
-              lastName, address, phonenumber);
+              lastName, address, phonenumber, id);
           }}
         >
-          <h5 >
+          <h5 aria-label='Update Client'>
             Update Client
           </h5>
           <hr />
@@ -40,7 +54,7 @@ const Update = ({ client, setFirstName,
               first name
             </label>
             <input
-              value={client?.firstName}
+              value={firstName}
               onChange={(e) => {
                 e.preventDefault();
                 setFirstName(e.target.value);
@@ -53,7 +67,7 @@ const Update = ({ client, setFirstName,
               last name
             </label>
             <input
-              value={client?.firstName}
+              value={lastName}
               onChange={(e) => {
                 e.preventDefault();
                 setLastName(e.target.value);
@@ -66,7 +80,7 @@ const Update = ({ client, setFirstName,
               phone number
             </label>
             <input
-              value={client?.phoneNumber}
+              value={phonenumber}
               onChange={(e) => {
                 e.preventDefault();
                 setPhonenumber(e.target.value);
@@ -80,7 +94,7 @@ const Update = ({ client, setFirstName,
             </label>
             <input
               className="form-control"
-              value={client?.address}
+              value={address}
               onChange={(e) => {
                 e.preventDefault();
                 setAddress(e.target.value);
@@ -107,13 +121,13 @@ const Update = ({ client, setFirstName,
     </div>
   );
   return (
-    <div>
-      {updateModal(client, setFirstName,
-        setLastName,
-        address, setAddress,
-        phonenumber,
-        firstName,
-        lastName, setPhonenumber, setOpen)}
-    </div>)
+    <>
+      {updateModal( id,setFirstName,
+    setLastName,
+    address,
+    phonenumber,
+    firstName,
+    lastName, setAddress, setPhonenumber, setOpen)}
+    </>)
 }
 export default Update
