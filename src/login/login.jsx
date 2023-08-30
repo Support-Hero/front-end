@@ -1,28 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "./login.css";
 import { api } from "../api";
 import Navbar from "../components/Navbar/Navbar";
 import Bottom from "../components/Bottom/Bottom";
 const Login = ({ navigate }) => {
-
+  const [email, setEmial]=useState()
+  const [password, setPassword]=useState()
   // login request
   const submit = async () => {
-    // const formData = new FormData();
-    // formData.append("email", email);
-    // formData.append("password", password);
-    // await fetch(api + "/login", {
-    //   method: "POST",
-    //   mode: "cors",
-    //   credentials: "same-origin", 
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: formData,
-    // }).then((res)=> {
-    //   localStorage.setItem('username','km@g.com')
-    // }).catch(error=> {
-    //   console.error("Error:", error);
-    // })
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    await fetch(api + "/login", {
+      method: "POST",
+      mode: "cors",
+      credentials: "same-origin", 
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: formData,
+    }).then((res)=> {
+      // localStorage.setItem('username','km@g.com')
+      console.log('res')
+    }).catch(error=> {
+      console.error("Error:", error);
+    })
     navigate("/welcome");
   };
   
@@ -44,6 +46,10 @@ const Login = ({ navigate }) => {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
+              onChange={(e)=>{
+                e.preventDefault()
+                setEmial(e.target.value)
+              }}
               // required
             />
           </div>
@@ -52,9 +58,14 @@ const Login = ({ navigate }) => {
               Password
             </label>
             <input
+            value={password}
               type="password"
               className="form-control"
               id="exampleInputPassword1"
+              onChange={(e)=>{
+                e.preventDefault()
+                setPassword(e.target.value)
+              }}
               // required
             />
           </div>
