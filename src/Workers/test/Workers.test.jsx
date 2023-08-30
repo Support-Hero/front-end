@@ -7,11 +7,12 @@ import { setupServer } from "msw/node";
 import { BrowserRouter } from "react-router-dom";
 import Workers from "../Workers"; // Adjust the path accordingly
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { api } from '../../api'
 
 describe("Workers Component", () => {
     // Setup Mock Service Worker
     const server = setupServer(
-        rest.get("http://localhost:8001/users", (req, res, ctx) => {
+        rest.get(api+"/users", (req, res, ctx) => {
             return res(
                 ctx.json([
                     // Provide sample worker data here
