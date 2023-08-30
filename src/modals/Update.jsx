@@ -55,6 +55,8 @@ const Update = ({id,  setFirstName,
             </label>
             <input
               value={firstName}
+              id='firstname'
+              aria-describedby='firstname'
               onChange={(e) => {
                 e.preventDefault();
                 setFirstName(e.target.value);
@@ -68,6 +70,8 @@ const Update = ({id,  setFirstName,
             </label>
             <input
               value={lastName}
+              id='lastname'
+              aria-describedby='lastname'
               onChange={(e) => {
                 e.preventDefault();
                 setLastName(e.target.value);
@@ -81,6 +85,8 @@ const Update = ({id,  setFirstName,
             </label>
             <input
               value={phonenumber}
+              id='phone_number'
+              aria-describedby='phone_number'
               onChange={(e) => {
                 e.preventDefault();
                 setPhonenumber(e.target.value);
@@ -94,6 +100,8 @@ const Update = ({id,  setFirstName,
             </label>
             <input
               className="form-control"
+              id='address'
+              aria-describedby='address'
               value={address}
               onChange={(e) => {
                 e.preventDefault();

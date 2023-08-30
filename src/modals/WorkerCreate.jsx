@@ -25,10 +25,11 @@ const WorkerCreate = (
     const res = await fetch(api + "/users/", {
       method: "POST",
       body: JSON.stringify(
-        {firstName:firstName,
-          lastName:lastName,
-          phoneNumber:phonenumber,
-          email:email,
+        {
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phonenumber,
+          email: email,
           password: '12345678',
           isManager: false
         }
@@ -44,13 +45,13 @@ const WorkerCreate = (
 
   const addM = (
     email,
-        phonenumber,
-        firstName,
-        lastName,
-        setEmail,
-        setPhonenumber,
-        setFirstName,
-        setLastName,
+    phonenumber,
+    firstName,
+    lastName,
+    setEmail,
+    setPhonenumber,
+    setFirstName,
+    setLastName,
     setOpen) => (
     <div className='bg-black w-100 h-100 bg-opacity-75 pt-5' style={{ position: "absolute", top: "0", zIndex: 1 }}>
       <div className="bg-white w-50 mx-auto p-5">
@@ -77,13 +78,16 @@ const WorkerCreate = (
               first name
             </label>
             <input
-            required
+              type="firstname"
+              className="form-control"
+              id="firstname"
+              aria-describedby="firstname"
               value={firstName}
               onChange={(e) => {
-                e.preventDefault();
-                setFirstName(e.target.value);
+                e.preventDefault()
+                setFirstName(e.target.value)
               }}
-              className="form-control"
+              required
             />
           </div>
           <div className="mb-3">
@@ -91,8 +95,10 @@ const WorkerCreate = (
               last name
             </label>
             <input
-            required
+              required
               value={lastName}
+              id="lastname"
+              aria-describedby="lastname"
               onChange={(e) => {
                 e.preventDefault();
                 setLastName(e.target.value);
@@ -105,8 +111,9 @@ const WorkerCreate = (
               phone number
             </label>
             <input
-            required
-            
+              required
+              id="phonenumber"
+              aria-describedby="phonenumber"
               className="form-control"
               value={phonenumber}
               onChange={(e) => {
@@ -116,12 +123,14 @@ const WorkerCreate = (
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="address" className="form-label">
+            <label htmlFor="email" className="form-label">
               email
             </label>
             <input
-            type="email"
-            required
+              type="email"
+              required
+              id="email"
+              aria-describedby="email"
               className="form-control"
               value={email}
               onChange={(e) => {

@@ -26,10 +26,11 @@ const Create = (
     const res = await fetch(api + "/clients/", {
       method: "POST",
       body: JSON.stringify(
-        {firstName:firstName,
-          lastName:lastName,
-          phoneNumber:phonenumber,
-          address:address
+        {
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phonenumber,
+          address: address
         }
       ),
       headers: {
@@ -71,25 +72,31 @@ const Create = (
           </h5>
           <hr />
           <div className="mb-3">
-            <label htmlFor="firstname" className="form-label">
+            <label htmlFor="fisrtname" className="form-label">
               first name
             </label>
             <input
-            required
-              value={firstName}
-              onChange={(e) => {
-                e.preventDefault();
-                setFirstName(e.target.value);
-              }}
+              type="firstname"
               className="form-control"
+              id="fisrtname"
+              value={firstName}
+              aria-describedby="firstname"
+              onChange={(e) => {
+                e.preventDefault()
+                setFirstName(e.target.value)
+              }}
+            required
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="lastname" className="form-label">
+            <label htmlFor="lastName" className="form-label">
               last name
             </label>
             <input
-            required
+              required
+              type="lastName"
+              id="lastName"
+              aria-describedby="lastName"
               value={lastName}
               onChange={(e) => {
                 e.preventDefault();
@@ -99,11 +106,13 @@ const Create = (
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="phonenumber" className="form-label">
+            <label htmlFor="phone number" className="form-label">
               phone number
             </label>
             <input required
               className="form-control"
+              id="phone number"
+              aria-describedby="phone number"
               value={phonenumber}
               onChange={(e) => {
                 e.preventDefault();
@@ -117,6 +126,8 @@ const Create = (
             </label>
             <input required
               className="form-control"
+              id="address"
+              aria-describedby="address"
               value={address}
               onChange={(e) => {
                 e.preventDefault();
@@ -150,7 +161,7 @@ const Create = (
   return (
     <>
       {addM(
-            firstName, lastName,
+        firstName, lastName,
         phonenumber,
         address,
         setAddress,
