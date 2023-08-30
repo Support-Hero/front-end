@@ -52,6 +52,8 @@ const WorkerUpdate = ({ id,setFirstName,
               first name
             </label>
             <input
+            id='firstname'
+            aria-describedby='firstname'
               value={firstName}
               onChange={(e) => {
                 e.preventDefault();
@@ -66,6 +68,8 @@ const WorkerUpdate = ({ id,setFirstName,
             </label>
             <input
               value={lastName}
+              id='lastname'
+              aria-label='lastname'
               onChange={(e) => {
                 e.preventDefault();
                 setLastName(e.target.value);
@@ -78,6 +82,8 @@ const WorkerUpdate = ({ id,setFirstName,
               phone number
             </label>
             <input
+            id='phone_number'
+            aria-label='phone_number'
               value={phonenumber}
               onChange={(e) => {
                 e.preventDefault();
@@ -91,6 +97,7 @@ const WorkerUpdate = ({ id,setFirstName,
               email
             </label>
             <input
+            aria-label='email'
               className="form-control"
               value={email}
               onChange={(e) => {

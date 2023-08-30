@@ -20,6 +20,7 @@ const RosterUpdate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                         <label htmlFor="firstname" className="form-label"> worker name:</label>
                         <input
                             required
+                            id='firstname'
                             value={workerName}
                             onChange={(e) => {
                                 e.preventDefault();
@@ -29,11 +30,12 @@ const RosterUpdate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="lastname" className="form-label">
+                        <label htmlFor="date" className="form-label">
                             Select Date
                         </label>
                         <input
                             required
+                            id='date'
                             type="date"
                             value={date}
                             onChange={(e) => {
@@ -45,10 +47,11 @@ const RosterUpdate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                     </div>
                     <div className="d-flex mb-3 ">
                         <div className="d-flex flex-column " style={{marginRight:"20px"}}>
-                            <label htmlFor="phonenumber" className="form-label">
+                            <label htmlFor="Shift Start" className="form-label">
                                Shift Start
                             </label>
                             <input required
+                            id='Shift Start'
                                 className="form-control"
                                 type="time"
                                 //   value={shiftStart}
@@ -59,10 +62,11 @@ const RosterUpdate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                             />
                         </div>
                         <div className="d-flex flex-column">
-                            <label htmlFor="address" className="form-label">
+                            <label htmlFor="Shift End" className="form-label">
                                Shift End
                             </label>
                             <input required
+                            id='Shift End'
                                 className="form-control"
                                 type="time"
                                     //   value={shiftEnd}
@@ -75,10 +79,11 @@ const RosterUpdate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                     </div>
                     <div className="d-flex mb-3">
                         <div className="d-flex flex-column"  style={{marginRight:"20px"}}>
-                            <label htmlFor="phonenumber" className="form-label">
+                            <label htmlFor="Break Start" className="form-label">
                                Break Start
                             </label>
                             <input
+                            id='Break Start'
                                 className="form-control"
                                 type="time"
                                 //   value={breakStart}
@@ -89,10 +94,11 @@ const RosterUpdate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                             />
                         </div>
                         <div className="d-flex flex-column">
-                            <label htmlFor="address" className="form-label">
+                            <label htmlFor="Break End" className="form-label">
                                Break End
                             </label>
                             <input required
+                            id='Break End'
                                 className="form-control"
                                 type="time"
                                 //   value={breakEnd}
