@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Body from '../components/body/Body'
 import { Link } from "react-router-dom";
 import '../components/Sidebar/sidebar.css'
+import { authcheck } from "../utilities/authcheck";
+import { managerAuthcheck } from "../utilities/manager_authcheck";
+import allcontext from "../context";
 export const lists = [
   {
     imsrc: "bi-people",
@@ -30,8 +33,8 @@ export const lists = [
 
 ];
 const Welcome = () => {
-
-  const username = "Emma"
+  const users = useContext(allcontext)[0]
+  const username = users.firstName+' '+users.lastName
   const clientsProgress = [
     { clientname: "emma li", color: "success", process: "44%" },
     { clientname: "misla s", color: "danger", process: "26%" },
@@ -40,13 +43,8 @@ const Welcome = () => {
     { clientname: "advr df3", color: "info", process: "54%" },
     { clientname: "masa lo", color: "danger", process: "84%" }
   ]
-  useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("access") && localStorage.getItem("user")) {
-      setToken(localStorage.getItem("access"))
-      setUserId(JSON.parse(localStorage.getItem("user")))
-      setUser(JSON.parse(localStorage.getItem("user")))
-    }
-  }, [])
+  managerAuthcheck()
+  
   const body = (
     <div className="w-75  mx-auto mt-5" style={{ paddingBottom:"100px" }}>
       <div className="">
@@ -54,7 +52,7 @@ const Welcome = () => {
         <label className="fs-3">Welcome,<label className="text-primary fw-light" style={{ paddingLeft: "10px" }}>{username}</label> </label>
         <hr />
         <div id='lg_main_bar'>
-          <div class="row gx-5 gy-4">
+          <div className="row gx-5 gy-4">
             <div className="col-4 ">
               <div className="border shadow rounded p-2">
 
@@ -119,7 +117,7 @@ const Welcome = () => {
                 <hr />
                 {
                   clientsProgress.map((progres, index) => (
-                    <div className="d-flex w-100 justify-content-between align-items-center px-2">
+                    <div key={index} className="d-flex w-100 justify-content-between align-items-center px-2">
                       <div className="">{progres.clientname}</div>
                       <div className="progress my-3"style={{width:"90%"}}>
                         <div className={`progress-bar bg-${progres.color}`} style={{ width: progres.process }}></div>

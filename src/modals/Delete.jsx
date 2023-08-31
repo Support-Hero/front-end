@@ -1,23 +1,30 @@
 import React from 'react'
 import { api } from "../api";
 
-const Delete = ({ client, setOpen, routeName }) => {
-  const deleteClient = async (id, setOpen,routeName) => {
+const Delete = ({ token, client, setOpen, routeName }) => {
+  const deleteClient = async (token, id, setOpen, routeName) => {
     // delete client
+
     try {
+      console.log('token delete in', token)
       const res = await fetch(api + routeName + id, {
         method: 'DELETE',
+
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
       });
+
       setOpen(false)
-      // const data = await res.json();
       window.location.reload()
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-  const deleteM = (client, setOpen,routeName) => (
-    <div className='bg-black w-100 h-100 bg-opacity-75 pt-5' style={{ position: "absolute",top:"0", zIndex: 1 }}>
+  const deleteM = (token, client, setOpen, routeName) => (
+    <div className='bg-black w-100 h-100 bg-opacity-75 pt-5' style={{ position: "absolute", top: "0", zIndex: 1 }}>
       <div className="bg-white w-50 mx-auto p-5">
         <h5 aria-label='Delete'>
           Delete
@@ -28,7 +35,7 @@ const Delete = ({ client, setOpen, routeName }) => {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={e=>{
+            onClick={e => {
               e.preventDefault()
               setOpen(false)
             }}
@@ -40,7 +47,7 @@ const Delete = ({ client, setOpen, routeName }) => {
             className="btn btn-primary"
             onClick={(e) => {
               e.preventDefault();
-              deleteClient(client._id, setOpen,routeName);
+              deleteClient(token, client._id, setOpen, routeName);
             }}
           >
             Yes{" "}
@@ -52,7 +59,7 @@ const Delete = ({ client, setOpen, routeName }) => {
   )
   return (
     <>
-      { deleteM(client, setOpen,routeName)}
+      {deleteM(token, client, setOpen, routeName)}
     </>)
 }
 export default Delete

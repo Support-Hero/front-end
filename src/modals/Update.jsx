@@ -1,12 +1,12 @@
 import React from 'react'
 import { api } from "../api";
 
-const Update = ({id,  setFirstName,
+const Update = ({token,id,  setFirstName,
   setLastName,
   phonenumber,
   firstName,
   lastName, address, setAddress, setPhonenumber, setOpen }) => {
-  const updateClient =async ( setOpen,
+  const updateClient =async ( token,setOpen,
     firstName,
     lastName, address, phonenumber,id) => {
 
@@ -21,14 +21,15 @@ const Update = ({id,  setFirstName,
         }
       ),
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}`
       }
     })
     window.location.reload()
     //close modal
     setOpen(false)
   };
-  const updateModal = (id, setFirstName,
+  const updateModal = (token,id, setFirstName,
     setLastName,
     address,
     phonenumber,
@@ -40,7 +41,7 @@ const Update = ({id,  setFirstName,
           className="p-5"
           onSubmit={(e) => {
             e.preventDefault();
-            updateClient( setOpen,
+            updateClient( token,setOpen,
               firstName,
               lastName, address, phonenumber, id);
           }}
@@ -130,7 +131,7 @@ const Update = ({id,  setFirstName,
   );
   return (
     <>
-      {updateModal( id,setFirstName,
+      {updateModal( token,id,setFirstName,
     setLastName,
     address,
     phonenumber,

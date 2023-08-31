@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Client.css";
 import { api } from "../api";
@@ -8,8 +8,10 @@ import Create from "../modals/Create";
 import Update from "../modals/Update";
 import Spinner from "../components/spinner";
 import Body from "../components/body/Body";
+import { managerAuthcheck } from "../utilities/manager_authcheck";
+import allcontext from "../context";
 
-const Clients = () => {
+const Clients = ({token}) => {
   // after fetch clients data, replace dummyclient
   const [dummyclients, setDummyclients] = useState();
 
@@ -38,10 +40,14 @@ const Clients = () => {
   const searchClient = () => {
     // fetch single client
   };
+
+
   const fetchClients = async () => {
     // fetch data
     try {
-      const res = await fetch(api + "/clients/");
+      const res = await fetch(api + "/clients/",{
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = await res.json();
       // set all Clients
       // set page sliced clients
@@ -54,14 +60,15 @@ const Clients = () => {
       console.error("Error:", error);
     }
   };
-
+  managerAuthcheck()
   useEffect(() => {
-    fetchClients();
-  }, []);
+      fetchClients();
+  }, [token]);
   const body = (
     <>
       {createOpen &&
         <Create
+        token={token}
           setAddress={setAddress}
           setFirstName={setFirstName}
           setLastName={setLastName}
@@ -72,8 +79,8 @@ const Clients = () => {
           address={address}
           setOpen={setCreateOpen}
         />}
-      {deleteOpen && <Delete routeName="/clients/" client={client} setOpen={setDeleteOpen} />}
-      {updateOpen && <Update id={id} setFirstName={setFirstName}
+      {deleteOpen && <Delete token={token} routeName="/clients/" client={client} setOpen={setDeleteOpen} />}
+      {updateOpen && <Update token={token} id={id} setFirstName={setFirstName}
         setLastName={setLastName}
         address={address}
         phonenumber={phonenumber}

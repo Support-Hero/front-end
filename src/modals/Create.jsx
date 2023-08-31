@@ -2,7 +2,7 @@ import React from "react";
 import { clientSlicer } from "../components/pagination";
 import { api } from "../api";
 const Create = (
-  {
+  {token,
     firstName,
     lastName,
     phonenumber,
@@ -16,6 +16,7 @@ const Create = (
 
   // create client api fetch
   const addnewClient = async (
+    token,
     firstName,
     lastName,
     phonenumber,
@@ -34,7 +35,8 @@ const Create = (
         }
       ),
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}`
       }
     })
     window.location.reload()
@@ -43,6 +45,7 @@ const Create = (
   };
 
   const addM = (
+    token,
     firstName, lastName,
     phonenumber,
     address,
@@ -58,6 +61,7 @@ const Create = (
           onSubmit={(e) => {
             e.preventDefault();
             addnewClient(
+              token,
               firstName,
               lastName,
               phonenumber,
@@ -161,6 +165,7 @@ const Create = (
   return (
     <>
       {addM(
+        token,
         firstName, lastName,
         phonenumber,
         address,
