@@ -10,23 +10,34 @@ import CreateNotes from './createnotes/createNotes';
 import CaseNoteApproval from "./CaseNoteApproval/casenoteapproval";
 import WorkerDashboard from "./WorkerDashboard/WorkerDashboard";
 import Roster from "./rosters/Roster";
-
+import allcontext from "./context";
+import { useEffect, useState } from "react";
 
 function App() {
   const navigate = useNavigate();
+  const [token, setToken] = useState('')
+  const [users, setUsers] = useState('')
+  useEffect(()=>{
+    if(window.localStorage.getItem('user')){
+      setToken(JSON.parse(window.localStorage.getItem('user')).token)
+      setUsers(JSON.parse(window.localStorage.getItem('user')))
+    }
+  },[])
   return (
-    <Routes>
-      <Route path="/" element={<Login navigate={navigate} />} />
-      <Route path="/welcome" element={<Welcome />} />
-      <Route path="/workers" element={<Workers />} />
-      <Route path="/workers/:id" element={<Worker />} />
-      <Route path="/clients" element={<Clients />} />
-      <Route path="/clients/:id" element={<Client />} />
-      <Route path="/create-notes" element={ <CreateNotes />} />
-      <Route path="/case-note-approval" element={ <CaseNoteApproval />} />
-      <Route path="/worker-dashboard" element={ <WorkerDashboard />} />
-      <Route path="/rosters" element={ <Roster />} />
-    </Routes>
+    <allcontext.Provider value={[users,setUsers,token,setToken]}>
+      <Routes>
+        <Route path="/" element={<Login navigate={navigate}  setUsers={setUsers} setToken={setToken} />} />
+        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/workers" element={<Workers token={token} />} />
+        <Route path="/workers/:id" element={<Worker />} />
+        <Route path="/clients" element={<Clients token={token} />} />
+        <Route path="/clients/:id" element={<Client token={token}/>} />
+        <Route path="/create-notes" element={<CreateNotes />} />
+        <Route path="/case-note-approval" element={<CaseNoteApproval />} />
+        <Route path="/worker-dashboard" element={<WorkerDashboard />} />
+        <Route path="/rosters" element={<Roster token={token} />} />
+      </Routes>
+    </allcontext.Provider>
   )
 }
 

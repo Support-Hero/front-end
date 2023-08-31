@@ -1,9 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Body from '../components/body/Body';
+import { authcheck } from "../utilities/authcheck";
+import allcontext from "../context";
 
 
 const WorkerDashboard = () => {
+  const users = useContext(allcontext)[0]
+  const username = users.firstName+' '+users.lastName
   const workerLists = [
     {
       imsrc: "bi-person-vcard",
@@ -27,20 +31,20 @@ const WorkerDashboard = () => {
       route: "/create-notes"
     },
   ];
-
-  const bodyContent = (
+  authcheck()
+  const bodyContent =(
     <>
       <div className="w-75 text-start mx-auto mt-5">
-        Welcome, Worker
+        Welcome, {username}
         <hr />
-      </div>
+      
       <div
         className="w-100 d-flex flex-column justify-content-center align-items-center"
         style={{ paddingBottom: "100px" }}
       >
         {workerLists.map((list, index) => (
           <div
-            className={`w-75 mt-3 border border-${list.bgcolor}`}
+            className={`w-100 mt-3 border border-${list.bgcolor}`}
             key={index}
           >
             <div
@@ -54,6 +58,7 @@ const WorkerDashboard = () => {
             <div className="p-2 bg-secondary bg-opacity-25">{list.description}</div>
           </div>
         ))}
+      </div>
       </div>
     </>
   );

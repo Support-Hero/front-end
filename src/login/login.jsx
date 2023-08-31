@@ -1,33 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./login.css";
 import { api } from "../api";
 import Navbar from "../components/Navbar/Navbar";
 import Bottom from "../components/Bottom/Bottom";
-const Login = ({ navigate }) => {
-  const [email, setEmial]=useState()
-  const [password, setPassword]=useState()
-  // login request
-  const submit = async () => {
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-    await fetch(api + "/login", {
-      method: "POST",
-      mode: "cors",
-      credentials: "same-origin", 
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: formData,
-    }).then((res)=> {
-      // localStorage.setItem('username','km@g.com')
-      console.log('res')
-    }).catch(error=> {
-      console.error("Error:", error);
-    })
-    navigate("/welcome");
+import { LoginNav } from "../utilities/login_nav";
+import { Link } from "react-router-dom";
+const Login = ({ navigate,setUsers,setToken }) => {
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const [msg, setMsg] = useState()
+  const [manager, setManager] = useState(false)
+  const [eye,setEye]=useState(true)
+  LoginNav()
+  // manager platform signin
+  const managerSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      // login service
+      const res = await fetch(api + "/login/", {
+        method: "POST",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
+      })
+      const data = await res.json()
+      if (res.status === 401) {
+        setMsg(data.error)
+      } else if (!data.isManager) {
+        console.log('res',data)
+        setMsg('you need to be a manager')
+      }else{
+        window.localStorage.setItem("user", JSON.stringify(data))
+        window.localStorage.setItem("token", data.token)
+        setUsers(data)
+        setToken(data.token)
+        navigate('/welcome')
+      }
+
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
-  
+  // worker platform signin
+  const submit = async (e) => {
+    e.preventDefault()
+    try {
+      // login service
+      const res = await fetch(api + "/login/", {
+        method: "POST",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
+      })
+      const data = await res.json()
+      if (res.status === 401) {
+        setMsg(data.error)
+      } else {
+        window.localStorage.setItem("user", JSON.stringify(data))
+        window.localStorage.setItem("token", data.token)
+        setUsers(data)
+        setToken(data.token)
+        navigate('/worker-dashboard')
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  }
   const body = (
     <div className="container" >
       <div className="d-flex justify-content-center align-items-center" >
@@ -36,54 +86,117 @@ const Login = ({ navigate }) => {
           style={{ width: "50%", objectFit: "contain" }}
           id="logo"
         />
-        <form onSubmit={submit} id="loginbox">
-          <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              onChange={(e)=>{
-                e.preventDefault()
-                setEmial(e.target.value)
-              }}
-              // required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
-            </label>
-            <input
-            value={password}
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              onChange={(e)=>{
-                e.preventDefault()
-                setPassword(e.target.value)
-              }}
-              // required
-            />
-          </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <label className="form-check-label" htmlFor="exampleCheck1">
-              remember me
-            </label>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Sign In
-          </button>
-        </form>
-        
+        {
+          manager ?
+            <form onSubmit={managerSubmit} id="loginbox">
+              <div className="mb-3">
+                <label htmlFor="exampleInputEmail1" className="form-label">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  onChange={(e) => {
+                    e.preventDefault()
+                    setEmail(e.target.value)
+                    setMsg()
+                  }}
+                required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
+                  Password
+                </label>
+                <p className="d-flex">
+
+                <input
+                  value={password}
+                  type={`${eye?"":"password"}`}
+                  className="form-control"
+                  id="exampleInputPassword1"
+                  style={{position:"relative"}}
+                  onChange={(e) => {
+                    e.preventDefault()
+                    setPassword(e.target.value)
+                    setMsg()
+                  }}
+                required
+                />
+                <i className="bi bi-eye-slash" 
+                  style={{ zIndex: "999", position: "relative", left: "-50px", top: "5px" }} 
+                  onClick={() => setEye(prevEye=>!prevEye)}></i>
+                </p>
+              </div>
+              <div className="mb-3 form-check text-end">
+                
+                <button type="button" className="btn btn-link" onClick={() => setManager(false)}>Team member?</button>
+              </div>
+              <div className="d-flex flex-column">
+
+                <label className="text-danger" style={{ visibility: msg ? "visible" : 'hidden', height: "50px" }}>{msg}</label>
+                <button type="submit" className="btn btn-primary w-50">
+                  Manager Sign In
+                </button>
+              </div>
+            </form>
+            :
+            <form onSubmit={submit} id="loginbox">
+              <div className="mb-3">
+                <label htmlFor="exampleInputEmail1" className="form-label">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  onChange={(e) => {
+                    e.preventDefault()
+                    setEmail(e.target.value)
+                    setMsg()
+                  }}
+                required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
+                  Password
+                </label>
+                <p className="d-flex">
+
+                <input
+                  value={password}
+                  type={`${eye?"":"password"}`}
+                  className="form-control"
+                  style={{position:"relative"}}
+                  id="exampleInputPassword1"
+                  onChange={(e) => {
+                    e.preventDefault()
+                    setPassword(e.target.value)
+                    setMsg()
+                  }}
+                required
+                  /><i className="bi bi-eye-slash" 
+                  style={{ zIndex: "999", position: "relative", left: "-50px", top: "5px" }} 
+                  onClick={() => setEye(prevEye=>!prevEye)}></i>
+                </p>
+              </div>
+              <div className="mb-3 form-check text-end">
+                <button type="button" className="btn btn-link" onClick={() => setManager(true)}>Team manager?</button>
+              </div>
+              <div className="d-flex flex-column">
+
+                <label className="text-danger" style={{ visibility: msg ? "visible" : 'hidden', height: "50px" }}>{msg}</label>
+                <button type="submit" className="btn btn-primary w-50">
+                  Sign In
+                </button>
+              </div>
+            </form>
+        }
+
       </div>
       <div className="d-flex">
         <img
@@ -97,7 +210,7 @@ const Login = ({ navigate }) => {
       </div>
     </div>
   );
-  return(
+  return (
     <div style={{ minHeight: "100vh", position: "relative" }} >
       <div >
         <Navbar />

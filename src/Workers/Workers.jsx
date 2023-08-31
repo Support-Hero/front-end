@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { dummyworker } from "../dummy";
 import { api } from "../api";
@@ -9,11 +9,13 @@ import Delete from "../modals/Delete";
 import WorkerCreate from "../modals/WorkerCreate"
 import WorkerUpdate from "../modals/WorkerUpdate";
 import Body from "../components/body/Body";
-const Workers = () => {
+import { managerAuthcheck } from "../utilities/manager_authcheck";
+import allcontext from "../context";
+const Workers = ({ token }) => {
+  const toke = useContext(allcontext)[2]
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [createOpen, setCreateOpen] = useState(false)
   const [updateOpen, setUpdatepen] = useState(false)
-
   const [client, setClient] = useState();
 
   const [firstName, setFirstName] = useState();
@@ -32,6 +34,8 @@ const Workers = () => {
   // all page list for pagination
   const [clientPage, setClientPage] = useState([1]);
 
+
+  managerAuthcheck()
   const pages = (dummyclients) => {
     const n = [];
     for (let i = 1; i <= dummyclients.length; i++) {
@@ -43,27 +47,31 @@ const Workers = () => {
   const fetchworkers = async () => {
     // fetch data
     try {
-      const res = await fetch(api + "/users");
+
+      const res = await fetch(api + "/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = await res.json();
       // set page sliced clients
       setDummyworkers(clientSlicer(data));
-
       // set first page clients
       setWorkersEachPage(clientSlicer(data)[0]);
       // set pages
       pages(clientSlicer(data));
+      
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", "need login");
     }
   };
   useEffect(() => {
-    fetchworkers()
-  }, [])
+      fetchworkers()
+  }, [token])
   const body = (
     <>
       {createOpen &&
         <WorkerCreate
-          setEmail={setEmail} //
+        token={token}
+          setEmail={setEmail} 
           setFirstName={setFirstName}
           setLastName={setLastName}
           setPhonenumber={setPhonenumber}
@@ -73,15 +81,15 @@ const Workers = () => {
           email={email}
           setOpen={setCreateOpen}
         />}
-      {deleteOpen && <Delete routeName="/users/" client={client} setOpen={setDeleteOpen} />}
-      {updateOpen && <WorkerUpdate id={id} setFirstName={setFirstName}
+      {deleteOpen && <Delete token={token} routeName="/users/" client={client} setOpen={setDeleteOpen} />}
+      {updateOpen && <WorkerUpdate token={token} id={id} setFirstName={setFirstName}
         setLastName={setLastName}
         email={email}
         phonenumber={phonenumber}
         firstName={firstName}
         lastName={lastName} setEmail={setEmail} setPhonenumber={setPhonenumber} setOpen={setUpdatepen} />}
 
-      <div className="w-75  mx-auto mt-5"style={{ marginBottom: "100px" }}>
+      <div className="w-75  mx-auto mt-5" style={{ marginBottom: "100px" }}>
         <div id="second_nav_out">
           <label className="fs-3">Workers</label>
           <form
@@ -170,7 +178,7 @@ const Workers = () => {
       </div>
     </>
   )
-  
+
   return (
     <Body body={body} />
   );

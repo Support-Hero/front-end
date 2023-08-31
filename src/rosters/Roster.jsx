@@ -5,7 +5,8 @@ import RosterCreate from "../modals/RosterCreate";
 import { getDateList } from "../components/getdates";
 import Body from "../components/body/Body";
 import RosterUpdate from "../modals/rosterUpdate";
-const Roster = () => {
+import { managerAuthcheck } from "../utilities/manager_authcheck";
+const Roster = ({ token }) => {
     const twoweeksdays = getDateList()
     const currentdays = twoweeksdays.slice(0, 7)
     // states to create new shift
@@ -45,6 +46,7 @@ const Roster = () => {
         setValue(2)
     };
     const [value, setValue] = useState(-1)
+    managerAuthcheck()
     useEffect(() => {
         pages(dummyclients)
     }, [])
@@ -97,7 +99,7 @@ const Roster = () => {
                                 <tr key={index}>
                                     <th style={{ position: "sticky", top: "0", left: "0" }}>{roste.name}</th>
                                     {weekdays.map((day, index1) => (
-                                        <td key={index1} onClick={() => roste.date === weekdays[index1]  ? setUpdateOpen(true) : setCreateOpen(true)}>
+                                        <td key={index1} onClick={() => roste.date === weekdays[index1] ? setUpdateOpen(true) : setCreateOpen(true)}>
                                             <div className="d-flex flex-column">
                                                 <label style={{ fontSize: "12px" }}>{roste.date === weekdays[index1] ? roste.shiftStart + " - " + roste.shiftEnd : ""}</label>
                                                 <label>

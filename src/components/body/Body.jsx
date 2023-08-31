@@ -2,13 +2,15 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import Bottom from "../Bottom/Bottom";
 import Sidebar from "../Sidebar/Sidebar";
+import { useLocation } from "react-router-dom";
 const Body = ({ body }) => {
+  const location = useLocation();
   return (
     <div style={{ minHeight: "100vh", position: "relative" }} >
       <div >
-        <Navbar />
+        <Navbar  />
         <div className="d-flex">
-          <Sidebar />
+        {location.pathname.includes('/welcome') &&<Sidebar  />}
           {body}
         </div>
       </div>

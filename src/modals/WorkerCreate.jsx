@@ -1,7 +1,7 @@
 import React from "react";
 import { api } from "../api";
 const WorkerCreate = (
-  {
+  {token,
     firstName,
     lastName,
     phonenumber,
@@ -15,6 +15,7 @@ const WorkerCreate = (
 
   // create client api fetch
   const addnewClient = async (
+    token,
     firstName,
     lastName,
     phonenumber,
@@ -35,7 +36,8 @@ const WorkerCreate = (
         }
       ),
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}`
       }
     })
     window.location.reload()
@@ -44,6 +46,7 @@ const WorkerCreate = (
   };
 
   const addM = (
+    token,
     email,
     phonenumber,
     firstName,
@@ -60,6 +63,7 @@ const WorkerCreate = (
           onSubmit={(e) => {
             e.preventDefault();
             addnewClient(
+              token,
               firstName,
               lastName,
               phonenumber,
@@ -165,6 +169,7 @@ const WorkerCreate = (
   return (
     <>
       {addM(
+        token,
         email,
         phonenumber,
         firstName,
