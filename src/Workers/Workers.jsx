@@ -12,7 +12,6 @@ import Body from "../components/body/Body";
 import { managerAuthcheck } from "../utilities/manager_authcheck";
 import allcontext from "../context";
 const Workers = ({ token }) => {
-  const toke = useContext(allcontext)[2]
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [createOpen, setCreateOpen] = useState(false)
   const [updateOpen, setUpdatepen] = useState(false)
