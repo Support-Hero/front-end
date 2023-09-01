@@ -7,13 +7,16 @@ import { setupServer } from "msw/node";
 import { BrowserRouter } from "react-router-dom";
 import Clients from "../Clients"; // Adjust the path accordingly
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import allcontext from "../../context";
+import { api } from '../../api'
 
 describe("Clients Component", () => {
     // Setup Mock Service Worker
     const server = setupServer(
-        rest.get("http://localhost:8001/clients", (req, res, ctx) => {
+        rest.get(api+"/clients", (req, res, ctx) => {
             return res(
                 ctx.json([
+                    
                     // Provide sample worker data here
                     // Adjust this data based on your actual API response
                     { _id: "1", firstName: "John", lastName: "Doe", address: "jsas 1 com", phoneNumber: "1234567890" },
@@ -28,10 +31,16 @@ describe("Clients Component", () => {
     afterAll(() => server.close());
 
     it("renders clients data and interacts with components", async () => {
+
+        const user = { isManager: true } || { isManager: false }
         render(
             <BrowserRouter>
                 <Clients />
-            </BrowserRouter>
+            </BrowserRouter>,{
+            wrapper: ({ children }) => (
+              <allcontext.Provider value={[user]}>{children}</allcontext.Provider>
+            ),
+          }
         );
 
         // Wait for the initial data to be loaded

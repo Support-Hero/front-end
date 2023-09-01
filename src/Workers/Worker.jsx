@@ -5,13 +5,15 @@ import { useParams } from "react-router-dom";
 import Spinner from '../components/spinner'
 import Body from "../components/body/Body";
 
-const Worker = () => {
+const Worker = ({ token }) => {
   const { id } = useParams();
   const [worker, setWorker] = useState();
   const fetchWorker = async (id) => {
     // fetch data
     try {
-      const res = await fetch(api + "/users/" + id);
+      const res = await fetch(api + "/users/" + id, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = await res.json();
       // set Client
       setWorker(data);
@@ -21,9 +23,9 @@ const Worker = () => {
   };
   useEffect(() => {
     fetchWorker(id);
-  }, []);
-  const body=(
-<>
+  }, [token]);
+  const body = (
+    <>
       {worker ? (
         <div className="w-75 text-start mx-auto mt-5">
           <label className="fs-3">Workers</label>
@@ -50,7 +52,7 @@ const Worker = () => {
             </div>
             <div className="row border-bottom py-3">
               <div className="d-flex flex-column">
-                {worker.clients.map((client, index) => (
+                {worker.clients?.map((client, index) => (
                   <div>
                     <p className="text-success"> name: {client.firstName} {client.lastName}</p>
                     <p>

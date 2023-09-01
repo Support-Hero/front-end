@@ -29,7 +29,7 @@ function App() {
         <Route path="/" element={<Login navigate={navigate}  setUsers={setUsers} setToken={setToken} />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/workers" element={<Workers token={token} />} />
-        <Route path="/workers/:id" element={<Worker />} />
+        <Route path="/workers/:id" element={<Worker token={token} />} />
         <Route path="/clients" element={<Clients token={token} />} />
         <Route path="/clients/:id" element={<Client token={token}/>} />
         <Route path="/create-notes" element={<CreateNotes />} />

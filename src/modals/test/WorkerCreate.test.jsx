@@ -28,6 +28,7 @@ describe("worker create component", () => {
         const setLastName = vi.fn((address) => address)
         const setPhonenumber = vi.fn((address) => address)
         const setOpen = vi.fn(() => false)
+        const mockreload = vi.fn(() => window.location.reload())
         render(<BrowserRouter>
             <WorkerCreate
                 setEmail={setEmail}
@@ -65,6 +66,7 @@ describe("worker create component", () => {
         // Wait for the API request to resolve
         await screen.findByText('Close');
 
+        expect(mockreload).toHaveBeenCalledTimes(0)
         // Check if the API request was made
         expect(screen.queryByText('Close')).toBeInTheDocument();
     });

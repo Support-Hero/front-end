@@ -6,7 +6,7 @@ import { rest } from "msw";
 import { BrowserRouter } from "react-router-dom";
 import Login from "../login";
 import { api } from '../../api'
-
+import allcontext from "../../context";
 describe("login component", () => {
   // Setup Mock Service Worker
   const server = setupServer(
@@ -26,12 +26,18 @@ describe("login component", () => {
   afterAll(() => server.close());
 
   it("should render login page", async () => {
+    const user = { isManager: true } || { isManager: false }
+
     render(
       <BrowserRouter>
         <Login />
-      </BrowserRouter>
-    );
+      </BrowserRouter>,{
+     wrapper: ({ children }) => (
+      <allcontext.Provider value={[user]}>{children}</allcontext.Provider>
+    ),
+  }
 
+);
     const emailInput = screen.getByLabelText("Email address");
     const passwordInput = screen.getByLabelText("Password");
     const submitButton = screen.getByText("Sign In")

@@ -4,13 +4,15 @@ import { useParams } from "react-router-dom";
 import Spinner from '../components/spinner'
 import Body from '../components/body/Body'
 
-const Client = () => {
+const Client = ({token}) => {
   const { id } = useParams();
   const [client, setClient] = useState();
   const fetchClient = async (id) => {
     // fetch data
     try {
-      const res = await fetch(api + "/clients/" + id);
+      const res = await fetch(api + "/clients/" + id,{
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = await res.json();
       // set Client
       setClient(data);
@@ -20,7 +22,7 @@ const Client = () => {
   };
   useEffect(() => {
     fetchClient(id);
-  }, []);
+  }, [token]);
   const body=(
     <>
     {client ? (
@@ -56,7 +58,7 @@ const Client = () => {
             </div>
             <div className="row border-bottom py-3">
               <div className="d-flex flex-column">
-                {client.clientNotes.map((note, index) => (
+                {client.clientNotes?.map((note, index) => (
                   <div>
                     <p className="text-success"> Date: {note.date}</p>
                     <p>
@@ -89,7 +91,7 @@ const Client = () => {
             <div className="row fs-3 py-3">Support Worker Team</div>
             <div className="row py-3">
               <div className="d-flex">
-                {client.assignedWorkers.map((worker, index) => (
+                {client.assignedWorkers?.map((worker, index) => (
                   <div className="d-flex flex-column align-items-center px-5">
                     <div className="rounded-circle bg-success mb-2" style={{width:"65px",height:"65px",objectFit:"cover"}} />
                     <label>

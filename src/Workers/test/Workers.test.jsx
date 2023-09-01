@@ -5,10 +5,10 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { BrowserRouter } from "react-router-dom";
-import Workers from "../Workers"; // Adjust the path accordingly
+import Workers from "../Workers"; 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { api } from '../../api'
-
+import allcontext from "../../context";
 describe("Workers Component", () => {
     // Setup Mock Service Worker
     const server = setupServer(
@@ -16,9 +16,7 @@ describe("Workers Component", () => {
             return res(
                 ctx.json([
                     // Provide sample worker data here
-                    // Adjust this data based on your actual API response
                     { _id: "1", firstName: "John", lastName: "Doe", email: "john@example.com", phoneNumber: "1234567890" },
-                    // More worker data...
                 ])
             );
         })
@@ -27,12 +25,18 @@ describe("Workers Component", () => {
     beforeAll(() => server.listen());
     afterEach(() => server.resetHandlers());
     afterAll(() => server.close());
-
     it("renders workers data and interacts with components", async () => {
+        const user = { isManager: true } || { isManager: false }
+
         render(
             <BrowserRouter>
                 <Workers />
-            </BrowserRouter>
+            </BrowserRouter>,{
+            wrapper: ({ children }) => (
+              <allcontext.Provider value={[user]}>{children}</allcontext.Provider>
+            ),
+          }
+        
         );
 
         // Wait for the initial data to be loaded
@@ -57,5 +61,6 @@ describe("Workers Component", () => {
         fireEvent.click(deleteButton);
         expect(screen.getByLabelText("Delete")).toBeInTheDocument();
     })
+    
 });
 

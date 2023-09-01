@@ -1,9 +1,9 @@
 import React from 'react'
 const Spinner = ()=>{
     return (
-        <div className="d-flex justify-content-center align-items-center h-25">
+        <div data-testid="spinner" className="d-flex justify-content-center align-items-center h-25">
           <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
+            <span  className="visually-hidden">Loading...</span>
           </div>
         </div>)
 }

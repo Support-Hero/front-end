@@ -134,6 +134,7 @@ const Welcome = () => {
         <div id='main_bar' style={{ paddingBottom: '100px' }} >
           {lists.map((list, index) => (
             <div
+            aria-label="main_page_block"
               className={`w-100  mt-3 border border-${list.bgcolor}`}
               key={index}
             >
