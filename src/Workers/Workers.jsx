@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { dummyworker } from "../dummy";
 import { api } from "../api";
 import "../Clients/Client.css"
 import Pagination, { clientSlicer } from "../components/pagination";

@@ -48,7 +48,6 @@ const Roster = ({ token }) => {
     const [rostersEachPage, setRostersEachPage] = useState();
 
     const [id, setId] = useState()
-
     // click button 
     const generateNextWeek = (e) => {
         e.preventDefault()
@@ -166,10 +165,7 @@ const Roster = ({ token }) => {
                                         <th style={{ position: "sticky", top: "0", left: "0" }}>{roste.worker.firstName}</th>
                                         {weekdays.map((day, index1) => (
 
-                                            roste.shifts.some(item => item.date.slice(0, 10) === weekdays[index1])
-                                                ?
-                                                (< td key={index1} >
-                                                    {roste.shifts.map((x, ind) => (
+
                                                         <div className="d-flex flex-column h-100" key={ind}
                                                             onClick={() => x.date.slice(0, 10) === weekdays[index1] ?
                                                                 (setWorkerName(roste.worker.firstName + roste.worker.lastName),
@@ -185,7 +181,7 @@ const Roster = ({ token }) => {
                                                                 :
                                                                 setCreateOpen(true)}
                                                         >
-                                                            <label style={{ fontSize: "12px" }}>
+
                                                                 {x.date.slice(0, 10) === weekdays[index1] ? x.shiftStart + " - " + x.shiftEnd : ""}
                                                             </label>
                                                             <label>
@@ -198,20 +194,6 @@ const Roster = ({ token }) => {
                                                                 }
                                                             </label>
 
-                                                        </div>))
-                                                        }
-                                                </td>
-                                                )
-                                                : (
-                                                    < td key={index1} onClick={() => setCreateOpen(true)}>
-
-                                                        <div className="h-100 w-100" >
-                                                            {/* {"-"} */}
-                                                        </div>
-                                                    </td>
-                                                )
-
-                                        ))}
                                     </tr>
                                 ))
                                 }

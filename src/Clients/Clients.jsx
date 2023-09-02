@@ -62,7 +62,7 @@ const Clients = ({token}) => {
       console.error("Error:", error);
     }
   };
-  managerAuthcheck()
+  // managerAuthcheck()
   useEffect(() => {
       fetchClients();
   }, [token]);

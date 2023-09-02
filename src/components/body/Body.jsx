@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import Navbar from "../Navbar/Navbar";
 import Bottom from "../Bottom/Bottom";
 import Sidebar from "../Sidebar/Sidebar";
@@ -13,7 +13,7 @@ const Body = ({ body }) => {
       <div >
         <Navbar  />
         <div className="d-flex">
-        {(location.pathname.includes('/welcome') || users.isManager) && <Sidebar  />}
+        {(location.pathname.includes('/welcome') || users.isManager) &&<Sidebar  />}
           {body}
         </div>
       </div>
