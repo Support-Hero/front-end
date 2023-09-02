@@ -1,33 +1,88 @@
 import React from 'react'
 import './rostercreate.css'
-const RosterUpdate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
-    const updateshiftModal = (setWorkerName, workerName, date, setDate,setOpen) => (
-        <div className='bg-black w-100 bg-opacity-75 pt-5' style={{height:"120vh", position: "absolute", top: "0", zIndex: 1 }}>
+import { api } from '../api'
+const RosterUpdate = ({ token,
+    
+    setOpen,
+    workerName, setWorkerName,
+    shiftStart, setShiftStart,
+    shiftEnd, setShiftEnd,
+    breakEnd, setBreakEnd,
+    breakStart, setBreakStart,
+    breakStatus, setBreakStatus,
+    date, setDate, id }) => {
+
+    const updates = async (token,
+        setOpen,
+        date,
+        shiftStart, shiftEnd,
+        breakStart, breakEnd, breakStatus, id) => {
+        const res = await fetch(api + "/rosters/" + id, {
+            method: "PUT",
+            body: JSON.stringify(
+                {
+                    date: date,
+                    shiftStart: shiftStart,
+                    shiftEnd: shiftEnd,
+                    breakStart: breakStart,
+                    breakEnd, breakEnd,
+                    break: breakStatus
+                }
+            ),
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+        const data = await res.json()
+        window.location.reload()
+        // reset all input
+        setOpen(false)
+
+    }
+    const deleteShift = async (token,id) => {
+        const res = await fetch(api + "/rosters/" + id, {
+            method: "DELETE",
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+        // const data = await res.json()
+        window.location.reload()
+        // reset all input
+        setOpen(false)
+    }
+    const updateshiftModal = (token,
+        
+        setOpen,
+        workerName, setWorkerName,
+        shiftStart, setShiftStart,
+        shiftEnd, setShiftEnd,
+        breakEnd, setBreakEnd,
+        breakStart, setBreakStart,
+        breakStatus, setBreakStatus,
+        date, setDate, id) => (
+        <div className='bg-black w-100 bg-opacity-75 pt-5' style={{ height: "120vh", position: "absolute", top: "0", zIndex: 1 }}>
             <div className="bg-white mx-auto p-5" id='modal-box'>
                 <form
                     className="p-5"
                     onSubmit={(e) => {
                         e.preventDefault();
-                        updateShift(
+                        updates(
+                            token,
                             setOpen,
-                            workerName, date,
-                        );
+                           date,
+                            shiftStart, shiftEnd,
+                            breakStart, breakEnd, breakStatus, id
+                        )
                     }}
                 >
                     <h5 > Update Shift</h5>
                     <hr />
                     <div className="mb-3">
-                        <label htmlFor="firstname" className="form-label"> worker name:</label>
-                        <input
-                            required
-                            id='firstname'
-                            value={workerName}
-                            onChange={(e) => {
-                                e.preventDefault();
-                                setWorkerName(e.target.value);
-                            }}
-                            className="form-control"
-                        />
+                        <label htmlFor="firstname" className="form-label"> worker name: {workerName}</label>
+                        
                     </div>
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">
@@ -46,85 +101,104 @@ const RosterUpdate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
                         />
                     </div>
                     <div className="d-flex mb-3 ">
-                        <div className="d-flex flex-column " style={{marginRight:"20px"}}>
-                            <label htmlFor="Shift Start" className="form-label">
-                               Shift Start
+                        <div className="d-flex flex-column " style={{ marginRight: "20px" }}>
+                            <label htmlFor="shiftStart" className="form-label">
+                                Shift Start
                             </label>
                             <input required
-                            id='Shift Start'
+                                id='shiftStart'
                                 className="form-control"
+                                aria-label='shiftStart'
                                 type="time"
-                                //   value={shiftStart}
+                                value={shiftStart}
                                 onChange={(e) => {
                                     e.preventDefault();
-                                    // setShiftStart(e.target.value);
+                                    setShiftStart(e.target.value);
                                 }}
                             />
                         </div>
                         <div className="d-flex flex-column">
-                            <label htmlFor="Shift End" className="form-label">
-                               Shift End
+                            <label htmlFor="shiftEnd" className="form-label">
+                                Shift End
                             </label>
                             <input required
-                            id='Shift End'
+                                id='shiftEnd'
                                 className="form-control"
                                 type="time"
-                                    //   value={shiftEnd}
+                                aria-label='shiftEnd'
+                                value={shiftEnd}
                                 onChange={(e) => {
                                     e.preventDefault();
-                                    // setShiftEnd(e.target.value);
+                                    setShiftEnd(e.target.value);
                                 }}
                             />
                         </div>
                     </div>
                     <div className="d-flex mb-3">
-                        <div className="d-flex flex-column"  style={{marginRight:"20px"}}>
-                            <label htmlFor="Break Start" className="form-label">
-                               Break Start
+                        <label htmlFor="breakStart" className="form-label">
+                            Break:
+                        </label>
+                        <select value={breakStatus} className="mx-1" onChange={(e) => setBreakStatus(e.target.value)}>
+                            <option value="-">-Select-</option>
+                            <option value="false">No</option>
+                            <option value='true'>Yes</option>
+                        </select>
+                    </div>
+                    {breakStatus && <div className="d-flex mb-3">
+                        <div className="d-flex flex-column" style={{ marginRight: "20px" }}>
+                            <label htmlFor="breakStart" className="form-label">
+                                Break Start
                             </label>
                             <input
-                            id='Break Start'
+                                id='breakStart'
                                 className="form-control"
                                 type="time"
-                                //   value={breakStart}
+                                aria-label='breakStart'
+                                value={breakStart}
                                 onChange={(e) => {
                                     e.preventDefault();
-                                    // setBreakStart(e.target.value);
+                                    setBreakStart(e.target.value);
                                 }}
                             />
                         </div>
                         <div className="d-flex flex-column">
-                            <label htmlFor="Break End" className="form-label">
-                               Break End
+                            <label htmlFor="breakEnd" className="form-label">
+                                Break End
                             </label>
                             <input required
-                            id='Break End'
+                                id='breakEnd'
                                 className="form-control"
                                 type="time"
-                                //   value={breakEnd}
+                                aria-label='breakEnd'
+                                value={breakEnd}
                                 onChange={(e) => {
                                     e.preventDefault();
-                                    // setBreakEnd(e.target.value);
+                                    setBreakEnd(e.target.value);
                                 }}
                             />
                         </div>
-                    </div>
+                    </div>}
                     <div className="d-flex justify-content-md-between">
                         <button
                             className="btn btn-secondary"
                             onClick={(e) => {
                                 e.preventDefault();
+                                setOpen(false)
                                 setWorkerName()
                                 setDate()
-                                setOpen(false)
+                                setShiftStart()
+                                setShiftEnd()
+                                setBreakStart()
+                                setBreakEnd()
+                                setBreakStatus(false)
                             }}
                         >
                             Close
                         </button>
-                        <button type="submit" className="btn btn-primary mx-2">
+                        <button onClick={(e)=>{e.preventDefault();deleteShift(token,id)}} className="btn btn-primary mx-2">
                             Delete{" "}
                         </button>
-                        <button type="submit" className="btn btn-primary mx-2">
+                        <button type="submit" className="btn btn-primary">
                             Save{" "}
                         </button>
                     </div>
@@ -134,7 +208,16 @@ const RosterUpdate = ({ setWorkerName, workerName, date, setDate, setOpen })=>{
     )
     return (
         <>
-            {updateshiftModal(setWorkerName, workerName, date, setDate,setOpen)}
+            {updateshiftModal(token,
+                
+                setOpen,
+                workerName, setWorkerName,
+                shiftStart, setShiftStart,
+                shiftEnd, setShiftEnd,
+                breakEnd, setBreakEnd,
+                breakStart, setBreakStart,
+                breakStatus, setBreakStatus,
+                date, setDate, id)}
         </>)
 }
 export default RosterUpdate
