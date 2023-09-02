@@ -1,4 +1,7 @@
+
+
 @media screen and (max-width:1300px)  {
+   
     #sidebar {
         display: none;
     }
@@ -14,6 +17,12 @@
 }
 
 @media screen and (min-width:1300px) {
+    #sidebar_btn{
+        width:150px;
+    }
+    #sidebar_btn:hover{
+        transform: translateX(20px);
+    }
     #sidebar {
         display: block;
     }

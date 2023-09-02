@@ -557,8 +557,8 @@ export const dummyNotes = [
 
 export const dummyRosters=[
     {
-      "name": "John Smith",
-      "date": "2023-08-28",
+      "worker": "John Smith",
+      "date": "2023-09-01",
       "shiftStart": "09:00 AM",
       "shiftEnd": "05:00 PM",
       "break": true,
@@ -566,8 +566,17 @@ export const dummyRosters=[
       "breakEnd": "12:30 PM"
     },
     {
-      "name": "Emily Johnson",
-      "date": "2023-08-28",
+      "worker": "John Smith",
+      "date": "2023-09-02",
+      "shiftStart": "09:00 AM",
+      "shiftEnd": "05:00 PM",
+      "break": true,
+      "breakStart": "12:00 PM",
+      "breakEnd": "12:30 PM"
+    },
+    {
+      "worker": "Emily Johnson",
+      "date": "2023-09-02",
       "shiftStart": "08:30 AM",
       "shiftEnd": "04:30 PM",
       "break": true,
@@ -575,8 +584,8 @@ export const dummyRosters=[
       "breakEnd": "01:00 PM"
     },
     {
-      "name": "Michael Williams",
-      "date": "2023-08-29",
+      "worker": "Michael Williams",
+      "date": "2023-09-03",
       "shiftStart": "10:00 AM",
       "shiftEnd": "06:00 PM",
       "break": false,
@@ -584,8 +593,8 @@ export const dummyRosters=[
       "breakEnd": null
     },
     {
-      "name": "Sarah Davis",
-      "date": "2023-08-29",
+      "worker": "Sarah Davis",
+      "date": "2023-09-04",
       "shiftStart": "12:00 PM",
       "shiftEnd": "08:00 PM",
       "break": true,
@@ -593,8 +602,8 @@ export const dummyRosters=[
       "breakEnd": "03:30 PM"
     },
     {
-      "name": "David Wilson",
-      "date": "2023-08-30",
+      "worker": "David Wilson",
+      "date": "2023-09-05",
       "shiftStart": "07:30 AM",
       "shiftEnd": "03:30 PM",
       "break": true,
@@ -602,8 +611,8 @@ export const dummyRosters=[
       "breakEnd": "12:00 PM"
     },
     {
-      "name": "Emma Anderson",
-      "date": "2023-08-30",
+      "worker": "Emma Anderson",
+      "date": "2023-09-06",
       "shiftStart": "02:00 PM",
       "shiftEnd": "10:00 PM",
       "break": true,
