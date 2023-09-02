@@ -12,14 +12,16 @@ import { managerAuthcheck } from "../utilities/manager_authcheck";
 import allcontext from "../context";
 
 const Clients = ({token}) => {
-  // after fetch clients data, replace dummyclient
+  // sliced clients data
   const [dummyclients, setDummyclients] = useState();
 
+  //states
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [address, setAddress] = useState("");
   const [id, setId] = useState()
+  
   const [client, setClient] = useState();
 
   const [deleteOpen, setDeleteOpen] = useState(false)

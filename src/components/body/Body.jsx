@@ -7,6 +7,7 @@ import allcontext from "../../context";
 const Body = ({ body }) => {
   const location = useLocation();
   const users = useContext(allcontext)[0]
+
   return (
     <div style={{ minHeight: "100vh", position: "relative" }} >
       <div >

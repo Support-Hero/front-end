@@ -48,7 +48,6 @@ const Roster = ({ token }) => {
     const [rostersEachPage, setRostersEachPage] = useState();
 
     const [id, setId] = useState()
-    
     // click button 
     const generateNextWeek = (e) => {
         e.preventDefault()
@@ -127,7 +126,6 @@ const Roster = ({ token }) => {
                     <label className="fs-3">Rosters</label>
                 </div>
                 <hr />
-
                 <div className="d-flex justify-content-end" >
 
                     <button className="btn" onClick={(e) => {
@@ -167,39 +165,45 @@ const Roster = ({ token }) => {
                                         <th style={{ position: "sticky", top: "0", left: "0" }}>{roste.worker.firstName}</th>
                                         {weekdays.map((day, index1) => (
 
-                                            < td key={index1} >
-                                                {
-                                                    roste.shifts.map((x, ind) => (
-                                                        <div className="d-flex flex-column h-100" key={ind}
-                                                            onClick={() => x.date.slice(0, 10) === weekdays[index1] ?
-                                                                (setWorkerName(roste.worker.firstName + roste.worker.lastName),
-                                                                    setDate(x.date.slice(0, 10)),
-                                                                    setBreakStatus(x.break),
-                                                                    setBreakStart(x.breakStart),
-                                                                    setBreakEnd(x.breakEnd),
-                                                                    setShiftEnd(x.shiftEnd),
-                                                                    setShiftStart(x.shiftStart),
-                                                                    setId(x._id),
-                                                                    setUpdateOpen(true)
-                                                                )
-                                                                :
-                                                                setCreateOpen(true)}
-                                                        >
-                                                           <label style={{ fontSize: "12px" }}>
-                                                                {x.date.slice(0, 10) === weekdays[index1] ? x.shiftStart + " - " + x.shiftEnd : ""}
-                                                            </label>
-                                                            <label>
-                                                                {x.date.slice(0, 10) === weekdays[index1] && x.break ?
-                                                                    (<label className="bg-primary text-white p-1" style={{ fontSize: "12px" }}>
-                                                                        <i className="bi bi-cup-fill p-1"></i>
-                                                                        break: {x.breakStart.split(' ')[0]} - {x.breakEnd}
-                                                                    </label>)
-                                                                    : ""
-                                                                }
-                                                            </label>
-                                                           
-                                                        </div>))}
-                                            </td>))}
+                                            roste.shifts.some(x=>x.date.slice(0, 10) === weekdays[index1]) ?
+                                                < td key={index1} >
+                                                    {
+                                                        roste.shifts.map((x, ind) => (
+                                                            <div className="d-flex flex-column" key={ind}
+                                                                onClick={() => x.date.slice(0, 10) === weekdays[index1] ?
+                                                                    (setWorkerName(roste.worker.firstName + roste.worker.lastName),
+                                                                        setDate(x.date.slice(0, 10)),
+                                                                        setBreakStatus(x.break),
+                                                                        setBreakStart(x.breakStart),
+                                                                        setBreakEnd(x.breakEnd),
+                                                                        setShiftEnd(x.shiftEnd),
+                                                                        setShiftStart(x.shiftStart),
+                                                                        setId(x._id),
+                                                                        setUpdateOpen(true)
+                                                                    )
+                                                                    :
+                                                                    ""}
+                                                            >
+                                                                <label style={{ fontSize: "12px" }}>
+                                                                    {x.date.slice(0, 10) === weekdays[index1] ? x.shiftStart + " - " + x.shiftEnd : ""}
+                                                                </label>
+                                                                <label>
+                                                                    {x.date.slice(0, 10) === weekdays[index1] && x.break ?
+                                                                        (<label className="bg-primary text-white p-1" style={{ fontSize: "12px" }}>
+                                                                            <i className="bi bi-cup-fill p-1"></i>
+                                                                            break: {x.breakStart.split(' ')[0]} - {x.breakEnd}
+                                                                        </label>)
+                                                                        : ""
+                                                                    }
+                                                                </label>
+
+                                                            </div>))}
+                                                </td> :
+                                                <td key={index1} onClick={() => setCreateOpen(true)} >
+                                                </td>
+                                        ))
+                                        }
+
                                     </tr>
                                 ))
                                 }

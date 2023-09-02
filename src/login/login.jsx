@@ -131,13 +131,13 @@ const Login = ({ navigate,setUsers,setToken }) => {
                 </p>
               </div>
               <div className="mb-3 form-check text-end">
-                
-                <button type="button" className="btn btn-link" onClick={() => setManager(false)}>Team member?</button>
+              <input type="checkbox" onClick={() => setManager(false)}/>
+                <label className="btn btn-link" >Team member</label>
               </div>
               <div className="d-flex flex-column">
 
                 <label className="text-danger" style={{ visibility: msg ? "visible" : 'hidden', height: "50px" }}>{msg}</label>
-                <button type="submit" className="btn btn-primary w-50">
+                <button type="submit" className="btn btn-success w-50">
                   Manager Sign In
                 </button>
               </div>
@@ -185,12 +185,13 @@ const Login = ({ navigate,setUsers,setToken }) => {
                 </p>
               </div>
               <div className="mb-3 form-check text-end">
-                <button type="button" className="btn btn-link" onClick={() => setManager(true)}>Team manager?</button>
+                <input type="checkbox" onClick={() => setManager(true)} />
+                <label className="btn btn-link" >Team manager</label>
               </div>
               <div className="d-flex flex-column">
 
                 <label className="text-danger" style={{ visibility: msg ? "visible" : 'hidden', height: "50px" }}>{msg}</label>
-                <button type="submit" className="btn btn-primary w-50">
+                <button type="submit" className="btn btn-danger w-50">
                   Sign In
                 </button>
               </div>
