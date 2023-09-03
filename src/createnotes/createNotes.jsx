@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { UNSAFE_RouteContext, useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import './createNotes.css';
@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar/Navbar';
 import { api } from '../api'
 
 // define CreateNotes component
-const CreateNotes = ({ token }) => {  // Added token as a prop
+const CreateNotes = ({ token, user }) => {  // Added token as a prop
   const [formData, setFormData] = useState({
     date: new Date(),
     client: '',
@@ -19,20 +19,26 @@ const CreateNotes = ({ token }) => {  // Added token as a prop
   });
 
 const [clients, setClients] = useState([]);
+const [author, setAuthor] = useState(null);
 
-  useEffect(() => {
-    fetch(api + '/clients', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .then(response => response.json())
-    .then(data => setClients(data))
-    .catch(error => console.error('Error fetching clients:', error));
-  }, []);
 
-  const [showModal, setShowModal] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [errorBoxMessage, setErrorBoxMessage] = useState('');
-  const [showErrorModal, setShowErrorModal] = useState(false);
+useEffect(() => {
+ 
+  fetch(api + '/clients', {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  .then(response => response.json())
+  .then(data => setClients(data))
+  .catch(error => console.error('Error fetching clients:', error));
+
+  fetch(api + '/getAuthor', {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  .then(response => response.json())
+  .then(data => setAuthor(data))
+  .catch(error => console.error('Error fetching author:', error));
+
+}, [token]);
 
 
 // destructure formData state
@@ -91,7 +97,20 @@ const handleSubmit = (e) => {
 
   // handles the confirmation submission of the form and redirects to the /welcome after a second
   const finalSubmit = () => {
-    const jsonData = JSON.stringify(formData);
+
+    const preparedData = {
+      date: formData.date,
+      goals: formData.goals,
+      presentation: formData.presentation,
+      actions: formData.action,
+      outcome: formData.outcome,
+      followUp: formData.followUp === 'true', 
+      isMgrAuthorised: false,  
+      author: { _id:  user._id},  
+      client: { _id: formData.client },  
+    };
+  
+    const jsonData = JSON.stringify(preparedData);
   
     fetch(api + '/notes', {
       method: 'POST',
@@ -115,6 +134,7 @@ const handleSubmit = (e) => {
   
     toggleModal();
   };
+  
 
   return (
     <>
