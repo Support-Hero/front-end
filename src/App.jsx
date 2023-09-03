@@ -36,7 +36,7 @@ function App() {
         <Route path="/worker-client-view" element={<WorkerClientView token={token} />} />
         <Route path="/clients/:id" element={<Client token={token}/>} />
         <Route path="/create-notes" element={<CreateNotes token={token} />} />
-        <Route path="/case-note-approval" element={<CaseNoteApproval />} />
+        <Route path="/case-note-approval" element={<CaseNoteApproval token={token} />} />
         <Route path="/worker-dashboard" element={<WorkerDashboard />} />
         <Route path="/rosters" element={<Roster token={token} />} />
         <Route path="/worker-rosters" element={<WorkerRoster token={token} />} />
