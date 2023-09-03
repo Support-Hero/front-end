@@ -21,6 +21,10 @@ const CreateNotes = ({ token, user }) => {  // Added token as a prop
 const [clients, setClients] = useState([]);
 const [author, setAuthor] = useState(null);
 
+const [showModal, setShowModal] = useState(false);
+const [showErrorModal, setShowErrorModal] = useState(false);
+const [errorBoxMessage, setErrorBoxMessage] = useState('');
+const [showConfirmation, setShowConfirmation] = useState(false);
 
 useEffect(() => {
  
@@ -30,13 +34,6 @@ useEffect(() => {
   .then(response => response.json())
   .then(data => setClients(data))
   .catch(error => console.error('Error fetching clients:', error));
-
-  fetch(api + '/getAuthor', {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-  .then(response => response.json())
-  .then(data => setAuthor(data))
-  .catch(error => console.error('Error fetching author:', error));
 
 }, [token]);
 
@@ -126,7 +123,7 @@ const handleSubmit = (e) => {
       setShowConfirmation(true);
       setTimeout(() => {
         navigate('/welcome');
-      }, 1000);
+      }, 500);
     })
     .catch((error) => {
       console.error('Error:', error);
