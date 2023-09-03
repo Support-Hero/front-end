@@ -11,6 +11,7 @@ import CaseNoteApproval from "./CaseNoteApproval/casenoteapproval";
 import WorkerDashboard from "./WorkerDashboard/WorkerDashboard";
 import Roster from "./rosters/Roster";
 import allcontext from "./context";
+import WorkerRoster from "./rosters/WorkerRoster"; 
 import { useEffect, useState } from "react";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/case-note-approval" element={<CaseNoteApproval />} />
         <Route path="/worker-dashboard" element={<WorkerDashboard />} />
         <Route path="/rosters" element={<Roster token={token} />} />
+        <Route path="/worker-rosters" element={<WorkerRoster token={token} />} />
       </Routes>
     </allcontext.Provider>
   )
