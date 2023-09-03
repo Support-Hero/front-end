@@ -22,12 +22,19 @@ const CaseNoteApproval = ({ token }) => {
         }
         return response.json();
       })
-      .then((data) => setNotes(data))
+      .then((data) => {
+        const unapprovedNotes = data.filter(note => !note.isMgrAuthorised);
+        setNotes(unapprovedNotes);
+      })      
       .catch((error) => {
         console.error('Error fetching notes:', error);
-        setNotes([]); 
+        setNotes([]);
+        setConfirmationMessage({
+          message: 'Error fetching notes. Please try again later.',
+          type: 'danger',
+        });
       });
-  };
+  }
   
 
   const approveNote = (id) => {
@@ -86,7 +93,7 @@ const CaseNoteApproval = ({ token }) => {
     <div>
       <Navbar />
       <div className="container mt-5 p-0">
-      {confirmationMessage.message && 
+        {confirmationMessage?.message &&  
           <div className={`alert alert-${confirmationMessage.type === 'success' ? 'success' : 'danger'}`}>
             {confirmationMessage.message}
           </div>
