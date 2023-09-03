@@ -60,7 +60,7 @@ const Navbar = () => {
                       <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
                           <Link to="/workers" className="dropdown-item" href="#">
-                            workers
+                            Workers
                           </Link>
                         </li>
                         <li>
@@ -77,7 +77,7 @@ const Navbar = () => {
                           <hr className="dropdown-divider" />
                         </li>
                         <li>
-                          <Link to="/notes" className="dropdown-item" href="#">
+                          <Link to="/case-note-approval" className="dropdown-item" href="#">
                             Notes
                           </Link>
                         </li>
@@ -112,12 +112,12 @@ const Navbar = () => {
                         </Link>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                           <li>
-                            <Link to="/worker_clients" className="dropdown-item" href="#">
+                            <Link to="/worker-client-view" className="dropdown-item" href="#">
                               Clients
                             </Link>
                           </li>
                           <li>
-                            <Link to="/worker_rosters" className="dropdown-item" href="#">
+                            <Link to="/worker-rosters" className="dropdown-item" href="#">
                               Rosters
                             </Link>
                           </li>
