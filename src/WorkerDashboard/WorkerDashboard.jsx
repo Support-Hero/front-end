@@ -19,7 +19,7 @@ const WorkerDashboard = () => {
       bgcolor: "success",
       title: "Clients",
       description: "Client Information",
-      route: "/clients"
+      route: "/worker-client-view"
     },
     {
       imsrc: "bi-file-earmark-medical",

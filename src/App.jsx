@@ -12,6 +12,7 @@ import WorkerDashboard from "./WorkerDashboard/WorkerDashboard";
 import Roster from "./rosters/Roster";
 import allcontext from "./context";
 import WorkerRoster from "./rosters/WorkerRoster"; 
+import WorkerClientView from "./Clients/WorkerClientView";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/workers" element={<Workers token={token} />} />
         <Route path="/workers/:id" element={<Worker token={token} />} />
         <Route path="/clients" element={<Clients token={token} />} />
+        <Route path="/worker-client-view" element={<WorkerClientView token={token} />} />
         <Route path="/clients/:id" element={<Client token={token}/>} />
         <Route path="/create-notes" element={<CreateNotes />} />
         <Route path="/case-note-approval" element={<CaseNoteApproval />} />
