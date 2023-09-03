@@ -1,9 +1,16 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import allcontext from "../../context";
 
 const Navbar = () => {
   const users = useContext(allcontext)[0]
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    window.localStorage.clear();
+    navigate("/"); 
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ position: "inherit" }}>
       <div className="container-fluid ">
@@ -137,11 +144,7 @@ const Navbar = () => {
                 <li className="nav-item">
                   <button
                     className="btn btn-link"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      window.localStorage.clear()
-                      window.location.reload()
-                    }}
+                    onClick={handleLogout} 
                   >
                     Logout
                   </button>
