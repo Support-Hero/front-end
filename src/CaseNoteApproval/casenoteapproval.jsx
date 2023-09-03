@@ -23,6 +23,7 @@ const CaseNoteApproval = ({ token }) => {
         return response.json();
       })
       .then((data) => {
+        console.log("original data:", data)
         const unapprovedNotes = data.filter(note => !note.isMgrAuthorised);
         console.log("Unapproved Notes:", unapprovedNotes)
         setNotes(unapprovedNotes);
