@@ -55,9 +55,9 @@ const WorkerRoster = ({ token }) => {
         <button className="btn" onClick={generateNextWeek} style={{ color: value === 2 ? "red" : "" }}>next week</button>
       </div>
       <Pagination
-        dummyclients={dummyclients}
+        rostersEachPage={rostersEachPage}
         clientPage={clientPage}
-        setClientsEachPage={setClientsEachPage}
+        setClientsEachPage={setRostersEachPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
