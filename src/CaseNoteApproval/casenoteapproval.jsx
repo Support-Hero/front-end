@@ -139,11 +139,11 @@ const CaseNoteApproval = ({ token }) => {
           </thead>
           <tbody>
             {unapprovedNotes.map((note, index) => (
-              <tr key={note._id.toString()}>
+                <tr key={note._id.toString()}>
                 <th scope="row">{note._id}</th>
-                <td>{note.author.email}</td>
+                <td>{`${note.author.firstName} ${note.author.lastName}`}</td> 
                 <td>{note.date}</td>
-                <td>{note.client._id}</td>
+                <td>{`${note.client.firstName} ${note.client.lastName}`}</td>
                 <td>{note.goals.slice(0, 30)}...</td>
                 <td>{note.isMgrAuthorised ? "Approved" : "Rejected"}</td>
                 <td>
