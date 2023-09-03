@@ -132,16 +132,6 @@ const Navbar = () => {
                   </>)}
               <ul className="d-flex navbar-nav">
                 <li className="nav-item">
-                  <Link
-                    to="/myaccount"
-                    className="nav-link active"
-                    aria-current="page"
-                    href="#"
-                  >
-                    My Account
-                  </Link>
-                </li>
-                <li className="nav-item">
                   <button
                     className="btn btn-link"
                     onClick={handleLogout} 
