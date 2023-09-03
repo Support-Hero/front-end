@@ -9,8 +9,9 @@ const CaseNoteApproval = ({ token }) => {
   const [confirmationMessage, setConfirmationMessage] = useState('');
 
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    token && fetchNotes();
+  }, [token]);
+
 
   const fetchNotes = () => {
     fetch(api + '/notes', {
