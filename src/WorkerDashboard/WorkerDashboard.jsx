@@ -27,7 +27,7 @@ const WorkerDashboard = () => {
       bgcolor: "secondary",
       title: "Roster",
       description: "Check Rosters",
-      route: "/roster"
+      route: "/worker-rosters"
     },
     {
       imsrc: "bi-microsoft-teams",

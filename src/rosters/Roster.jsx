@@ -6,6 +6,8 @@ import { getDateList } from "../components/getdates";
 import Body from "../components/body/Body";
 import RosterUpdate from "../modals/rosterUpdate";
 import { managerAuthcheck } from "../utilities/manager_authcheck";
+
+
 const Roster = ({ token }) => {
     const twoweeksdays = getDateList()
     const currentdays = twoweeksdays.slice(0, 7)
