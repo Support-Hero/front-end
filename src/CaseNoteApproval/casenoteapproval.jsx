@@ -1,47 +1,71 @@
 import React, { useState, useEffect } from 'react';
-import { dummyNotes } from '../dummy.js';
+import { api } from '../api'; 
 import Navbar from '../components/Navbar/Navbar';
 import { Link } from 'react-router-dom';
 
-const CaseNoteApproval = () => {
+const CaseNoteApproval = ({ token }) => {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [confirmationMessage, setConfirmationMessage] = useState('');
 
   useEffect(() => {
-    setNotes(dummyNotes);
+    fetchNotes();
   }, []);
 
+  const fetchNotes = () => {
+    fetch(api + '/notes', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => response.json())
+      .then((data) => setNotes(data))
+      .catch((error) => console.error('Error fetching notes:', error));
+  };
+
   const approveNote = (id) => {
-    if (id === undefined || id === null) {
-      console.error("Undefined or null ID provided to approveNote");
-      return;
-    }
-    const updatedNotes = notes.map((note) => {
-      if (note && note.id === id) {
-        return { ...note, isMgrAuthorised: true };
-      }
-      return note;
-    });
-    setNotes(updatedNotes);
-    setConfirmationMessage({ message: `Progress note with the id ${id} is approved`, type: 'success' });
+    fetch(api + '/notes/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ isMgrAuthorised: true }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const updatedNotes = notes.map((note) =>
+          note._id === id ? { ...note, isMgrAuthorised: true } : note
+        );
+        setNotes(updatedNotes);
+        setConfirmationMessage({
+          message: `Progress note with the id ${id} is approved`,
+          type: 'success',
+        });
+      })
+      .catch((error) => console.error('Error updating note:', error));
   };
 
   const rejectNote = (id) => {
-    if (id === undefined || id === null) {
-      console.error("Undefined or null ID provided to rejectNote");
-      return;
-    }
-    const updatedNotes = notes.map((note) => {
-      if (note && note.id === id) {
-        return { ...note, isMgrAuthorised: false };
-      }
-      return note;
-    });
-    setNotes(updatedNotes);
-    setConfirmationMessage({ message: `Progress note with the id ${id} is rejected`, type: 'danger' });
+    fetch(api + '/notes/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ isMgrAuthorised: false }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const updatedNotes = notes.map((note) =>
+          note._id === id ? { ...note, isMgrAuthorised: false } : note
+        );
+        setNotes(updatedNotes);
+        setConfirmationMessage({
+          message: `Progress note with the id ${id} is rejected`,
+          type: 'danger',
+        });
+      })
+      .catch((error) => console.error('Error updating note:', error));
   };
-
   const viewNoteDetails = (note) => {
     setSelectedNote(note);
   };
