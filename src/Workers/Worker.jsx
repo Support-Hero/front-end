@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
 import { api } from "../api";
 import { useParams } from "react-router-dom";
 import Spinner from '../components/spinner'
@@ -44,9 +43,9 @@ const Worker = ({ token }) => {
               <div class="col-2">address :</div>
               <div class="col-2">{worker.email}</div>
             </div>
-            <div className="row border-bottom py-3">
-              <div class="col ">Clients :</div>
-              <div class="col">
+            <div className="row border-bottom fs-3 py-3 align-items-center" id="workers_clients">
+              Clients :
+              <div class="col fs-6">
                 <button>view all</button>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
 import "../Clients/Client.css"
@@ -9,7 +9,7 @@ import WorkerCreate from "../modals/WorkerCreate"
 import WorkerUpdate from "../modals/WorkerUpdate";
 import Body from "../components/body/Body";
 import { managerAuthcheck } from "../utilities/manager_authcheck";
-import allcontext from "../context";
+import { HashLink } from 'react-router-hash-link';
 const Workers = ({ token }) => {
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [createOpen, setCreateOpen] = useState(false)
@@ -138,8 +138,7 @@ const Workers = ({ token }) => {
                     <td><Link to={`/workers/${worker._id}`}>{worker.firstName} {worker.lastName}</Link></td>
                     <td>{worker.email}</td>
                     <td>{worker.phoneNumber}</td>
-                    <td><Link to="#">View</Link></td>
-                    <td><Link to={`/notes/${worker._id}`}>View_notes</Link></td>
+                    <td><HashLink to={`/workers/${worker._id}#workers_clients`}>View</HashLink></td>
                     <td><button
                       className="btn btn-outline-primary"
                       onClick={(e) => {

@@ -1,5 +1,4 @@
 import React from "react";
-import { clientSlicer } from "../components/pagination";
 import { api } from "../api";
 const Create = (
   {token,

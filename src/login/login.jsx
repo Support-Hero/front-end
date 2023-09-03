@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./login.css";
 import { api } from "../api";
 import Navbar from "../components/Navbar/Navbar";
 import Bottom from "../components/Bottom/Bottom";
 import { LoginNav } from "../utilities/login_nav";
-import { Link } from "react-router-dom";
 const Login = ({ navigate,setUsers,setToken }) => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()

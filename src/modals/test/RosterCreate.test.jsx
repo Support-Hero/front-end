@@ -23,47 +23,56 @@ describe("roster create component", () => {
     afterAll(() => server.close());
 
     it('should add new shift modal rendered', async () => {
+        const workerlsit=[{
+            "firstName":"sem",
+            "lastName":"doo"
+        },{
+            "firstName":"sem1",
+            "lastName":"doo1"
+        }]
+        // Mock user input
         const setWorkerName = vi.fn((name) => name)
         const setDate = vi.fn((date) => date)
         const setOpen = vi.fn(() => false)
+        const setShiftEnd = vi.fn(() => "10:00")
+        const setShiftStart = vi.fn(() => "08:00")
+        const setBreakStatus=vi.fn(() => false)
+        const workerName='John'
+
         render(<BrowserRouter>
             <RosterCreate
+            workerlist={workerlsit}
                 setOpen={setOpen}
                 setWorkerName={setWorkerName}
                 setDate={setDate}
+                workerName={workerName}
+                setShiftEnd={setShiftEnd}
+                setShiftStart={setShiftStart}
+                setBreakStatus={setBreakStatus}
                  />
         </BrowserRouter>);
+
         // Mock user input
-        const workernameInput = screen.getByLabelText('worker name:');
+
+        const workernameInput = screen.getByLabelText('workername');
         const dateInput = screen.getByLabelText('Select Date');
         const shiftStartInput = screen.getByLabelText('Shift Start');
         const shiftEndInput = screen.getByLabelText('Shift End');
-        const breakStartInput = screen.getByLabelText('Break Start');
-        const breakEndInput = screen.getByLabelText('Break End');
+        const breakstatusInput = screen.getByLabelText('breakStatus');
 
-        fireEvent.change(workernameInput, { target: { value: 'John' } });
+        fireEvent.change(workernameInput, { target: { value: 'Joe' } });
         fireEvent.change(dateInput, { target: { value: '2022-09-01' } });
+        fireEvent.change(shiftStartInput, { target: { value: '09:01' } });
+        fireEvent.change(shiftEndInput, { target: { value: '10:01' } });
+        fireEvent.change(breakstatusInput, { target: { value: true } });
 
-
-        expect(workernameInput.value).toBe("John");
+        expect(workernameInput.value).toBe("-");
         expect(dateInput.value).toBe("2022-09-01");
-        // // // Mock API response
-        // server.use(
-        //     rest.post('/clients/', (req, res, ctx) => {
-        //         return res(ctx.status(200),
-        //             ctx.json(ctx.json({
-        //                 id: 1, firstName: "John", lastName: "Doe",
-        //                 phoneNumber: "1234567890", address: "123 Main St"
-        //             })));
-        //     })
-        // );
+        expect(shiftStartInput.value).toBe("09:01");
+        expect(shiftEndInput.value).toBe("10:01");
+        expect(breakstatusInput.value).toBe("true");
 
-        // fireEvent.click(saveButton);
-
-        // // Wait for the API request to resolve
-        // await screen.findByText('Close'); 
-
-        // // Check if the API request was made
-        // expect(screen.queryByText('Close')).toBeInTheDocument();
+        expect(screen.queryByText('Save')).toBeInTheDocument();
+        expect(screen.queryByText('Close')).toBeInTheDocument();
     });
 })
