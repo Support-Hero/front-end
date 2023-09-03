@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import './createNotes.css';
 import Navbar from '../components/Navbar/Navbar';
+import { api } from '../api'
 
 // define CreateNotes component
-const CreateNotes = () => {
-// Initalizes the variables use useState for the form
+const CreateNotes = ({ token }) => {  // Added token as a prop
   const [formData, setFormData] = useState({
     date: new Date(),
     client: '',
@@ -18,6 +18,17 @@ const CreateNotes = () => {
     followUp: ''
   });
 
+const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    fetch(api + '/clients', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then(response => response.json())
+    .then(data => setClients(data))
+    .catch(error => console.error('Error fetching clients:', error));
+  }, []);
+
   const [showModal, setShowModal] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [errorBoxMessage, setErrorBoxMessage] = useState('');
@@ -27,8 +38,6 @@ const CreateNotes = () => {
 // destructure formData state
   const { date, client, goals, presentation, action, outcome, followUp } = formData;
 
-// current clietn list - can be filled by API call 
-  const clients = ['Client 1', 'Client 2', 'Client 3'];
 
   const navigate = useNavigate();
 
@@ -83,16 +92,29 @@ const handleSubmit = (e) => {
   // handles the confirmation submission of the form and redirects to the /welcome after a second
   const finalSubmit = () => {
     const jsonData = JSON.stringify(formData);
-    console.log(jsonData);
-
-    setShowConfirmation(true);
-    setTimeout(() => {
-      navigate('/welcome');
-    }, 1000);
+  
+    fetch(api + '/notes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: jsonData,
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      setShowConfirmation(true);
+      setTimeout(() => {
+        navigate('/welcome');
+      }, 1000);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   
     toggleModal();
   };
-  
 
   return (
     <>
@@ -107,11 +129,11 @@ const handleSubmit = (e) => {
           <div>
             <label>Client: </label>
             <select name="client" value={client} onChange={handleChange}>
-              <option value="" disabled>Select client</option>
-              {clients.map((client, index) => (
-                <option key={index} value={client}>{client}</option>
-              ))}
-            </select>
+            <option value="" disabled>Select client</option>
+            {clients.map((clientObj, index) => (
+              <option key={index} value={clientObj._id}>{clientObj.firstName} {clientObj.lastName}</option>
+            ))}
+          </select>
           </div>
           <div>
             <label>Goals: </label>
