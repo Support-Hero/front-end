@@ -11,7 +11,7 @@ const Bottom = () => {
       <div
         style={{ height: "50px",lineHeight:'50px' }}
       >
-        &copy;Cameron Williams && Wen Lu && Zac
+        &copy; Zac Bunkum-Shields, Wen Lu and Cameron Williams
       </div>
     </div>
   );
