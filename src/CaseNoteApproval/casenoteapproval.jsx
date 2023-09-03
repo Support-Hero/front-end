@@ -16,10 +16,19 @@ const CaseNoteApproval = ({ token }) => {
     fetch(api + '/notes', {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch notes - Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => setNotes(data))
-      .catch((error) => console.error('Error fetching notes:', error));
+      .catch((error) => {
+        console.error('Error fetching notes:', error);
+        setNotes([]); 
+      });
   };
+  
 
   const approveNote = (id) => {
     fetch(api + '/notes/' + id, {
