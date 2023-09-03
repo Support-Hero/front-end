@@ -10,24 +10,28 @@ export const lists = [
     bgcolor: "primary ",
     title: "workers",
     description: "worker information, crud",
+    endpoint: "workers"
   },
   {
     imsrc: "bi-person-vcard",
     bgcolor: "success ",
     title: "clients",
     description: "worker information, crud",
+    endpoint: "clients"
   },
   {
     imsrc: "bi-file-earmark-medical",
     bgcolor: "secondary ",
     title: "rosters",
     description: "worker information, crud",
+    endpoint: "rosters"
   },
   {
     imsrc: "bi-microsoft-teams",
     bgcolor: "danger",
     title: "notes",
     description: "worker information, crud",
+    endpoint: "case-note-approval"
   },
 
 ];
