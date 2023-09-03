@@ -14,6 +14,7 @@ const CaseNoteApproval = ({ token }) => {
 
 
   const fetchNotes = () => {
+    console.log("Fetching notes with token:", token); // DEBUG
     fetch(api + '/notes', {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -24,6 +25,7 @@ const CaseNoteApproval = ({ token }) => {
         return response.json();
       })
       .then((data) => {
+        console.log("Fetched data:", data); // DEBUG
         const unapprovedNotes = data.filter(note => !note.isMgrAuthorised);
         setNotes(unapprovedNotes);
       })      
@@ -36,7 +38,6 @@ const CaseNoteApproval = ({ token }) => {
         });
       });
   }
-  
 
   const approveNote = (id) => {
     fetch(api + '/notes/' + id, {
