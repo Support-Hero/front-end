@@ -13,7 +13,7 @@ const Sidebar = () => {
                     className={` mt-3 border border-${list.bgcolor} bg-${list.bgcolor} bg-opacity-75`}
                     key={index}
                 >
-                    <Link to={`/${list.title}`}> 
+                    <Link to={`/${list.endpoint}`}> 
                         <i className={`bi ${list.imsrc} text-white fs-2`}></i>
                         <label className="fs-5 text-white" style={{ marginLeft: '10px' }}>{list.title}</label>
                     </Link>
