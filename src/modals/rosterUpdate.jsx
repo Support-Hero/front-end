@@ -25,7 +25,7 @@ const RosterUpdate = ({ token,
                     shiftStart: shiftStart,
                     shiftEnd: shiftEnd,
                     breakStart: breakStart,
-                    breakEnd, breakEnd,
+                    breakEnd: breakEnd,
                     break: breakStatus
                 }
             ),
@@ -135,10 +135,10 @@ const RosterUpdate = ({ token,
                         </div>
                     </div>
                     <div className="d-flex mb-3">
-                        <label htmlFor="breakStart" className="form-label">
+                        <label htmlFor="breakstatus" className="form-label">
                             Break:
                         </label>
-                        <select value={breakStatus} className="mx-1" onChange={(e) => setBreakStatus(e.target.value)}>
+                        <select aria-label='breakstatus' value={breakStatus} className="mx-1" onChange={(e) => setBreakStatus(e.target.value)}>
                             <option value="-">-Select-</option>
                             <option value="false">No</option>
                             <option value='true'>Yes</option>

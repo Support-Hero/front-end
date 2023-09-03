@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Body from '../components/body/Body'
-import { Link } from "react-router-dom";
 import '../components/Sidebar/sidebar.css'
-import { authcheck } from "../utilities/authcheck";
 import { managerAuthcheck } from "../utilities/manager_authcheck";
 import allcontext from "../context";
+import { Link } from "react-router-dom";
 export const lists = [
   {
     imsrc: "bi-people",
@@ -98,14 +97,11 @@ const Welcome = () => {
                 <ul className="list-group p-4">
                   <li className="list-group-item d-flex justify-content-between align-items-center">
                     Client 1
-                    <Link to='/clients/:name' >View</Link>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center">
                     Client 1
-                    <Link to='/clients/:name'>View</Link>
                   </li><li className="list-group-item d-flex justify-content-between align-items-center">
                     Client 1
-                    <Link to='/clients/:name' >View</Link>
                   </li>
                 </ul>
               </div>
@@ -139,12 +135,11 @@ const Welcome = () => {
               key={index}
             >
               <div
-                className={`d-flex justify-content-between  p-2 bg-${list.bgcolor} bg-opacity-75`}
+                className={`d-flex justify-content-between align-items-center p-2 bg-${list.bgcolor} bg-opacity-75`}
               >
                 <i className={`bi ${list.imsrc} text-white fs-1`}></i>
-                <Link to={`/${list.title}`}> <label className="fs-2 text-white">{list.title}</label></Link>
+            <Link to={`/${list.title}`}>  <label className="fs-3 text-white">{list.title}</label></Link>
               </div>
-
               <div className="p-2 bg-secondary bg-opacity-25">{list.description}</div>
             </div>
           ))}

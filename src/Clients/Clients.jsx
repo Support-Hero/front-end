@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Client.css";
 import { api } from "../api";
@@ -8,8 +8,7 @@ import Create from "../modals/Create";
 import Update from "../modals/Update";
 import Spinner from "../components/spinner";
 import Body from "../components/body/Body";
-import { managerAuthcheck } from "../utilities/manager_authcheck";
-import allcontext from "../context";
+import { HashLink } from 'react-router-hash-link';
 
 const Clients = ({token}) => {
   // sliced clients data
@@ -146,10 +145,10 @@ const Clients = ({token}) => {
                       <td>{client.address}</td>
                       <td>{client.phoneNumber}</td>
                       <td>
-                        <Link to={`/workers/${client._id}`}>View</Link>
+                        <HashLink to={`/clients/${client._id}#workers_view`}>View</HashLink>
                       </td>
                       <td>
-                        <Link to={`/notes/${client._id}`}>Notes</Link>
+                        <HashLink to={`/clients/${client._id}#notes_view`}>Notes</HashLink>
                       </td>
                       <td>
                         <button

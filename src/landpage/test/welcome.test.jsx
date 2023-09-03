@@ -18,7 +18,7 @@ describe("welcome component", () => {
         );
         expect(screen.getByText('Welcome,')).toBeInTheDocument();
         expect(screen.getByText('Emma zha')).toBeInTheDocument();
-        const clientLinks = screen.getAllByText('View');
+        const clientLinks = screen.getAllByText('Client 1');
         expect(clientLinks).toHaveLength(3);
 
     })

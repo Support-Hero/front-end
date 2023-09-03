@@ -27,7 +27,7 @@ const RosterCreate = ({
                     shiftStart: shiftStart,
                     shiftEnd: shiftEnd,
                     breakStart: breakStart,
-                    breakEnd, breakEnd,
+                    breakEnd: breakEnd,
                     break: breakStatus
                 }
             ),
@@ -71,7 +71,7 @@ const RosterCreate = ({
                     <hr />
                     <div className="mb-3">
                         <label htmlFor="workername" className="form-label"> worker name:</label>
-                        <select value={workerName} className="mx-1" onChange={(e) => setWorkerName(e.target.value)}>
+                        <select value={workerName} aria-label='workername' className="mx-1" onChange={(e) => setWorkerName(e.target.value)}>
                             <option value="-">-Select-</option>
                             {
                                 workerlist.map((name, index) => (
@@ -132,10 +132,10 @@ const RosterCreate = ({
                         </div>
                     </div>
                     <div className="d-flex mb-3">
-                        <label htmlFor="breakStart" className="form-label">
+                        <label htmlFor="breakStatus" className="form-label">
                             Break:
                         </label>
-                        <select value={breakStatus} className="mx-1" onChange={(e) => setBreakStatus(e.target.value)}>
+                        <select value={breakStatus} aria-label='breakStatus' className="mx-1" onChange={(e) => setBreakStatus(e.target.value)}>
                             <option value="-">-Select-</option>
                             <option value="false">No</option>
                             <option value='true'>Yes</option>

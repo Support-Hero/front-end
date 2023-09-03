@@ -45,18 +45,21 @@ const Client = ({token}) => {
             </div>
             <div className="row fs-3 pt-3">Care Plans</div>
             <div className="row py-3">
-              <div class="col">plan.pdf</div>
+             
               <div class="col">
-                <button>Upload</button>
+              plan.pdf
+                <button style={{marginLeft:"20px"}}>Upload</button>
               </div>
             </div>
-            <div className="row border-bottom py-3">
-              <div className="col ">Progress Notes :</div>
-              <div className="col">
-                <button>view all</button>
-              </div>
-            </div>
-            <div className="row border-bottom py-3">
+            <div className="row border-bottom fs-3  py-3 align-items-center">
+          Progress Notes :
+            <div className="col fs-6"> 
+              <button>view all</button>
+            </div></div>
+              
+           
+          
+            <div className="row border-bottom py-3" id="notes_view">
               <div className="d-flex flex-column">
                 {client.clientNotes?.map((note, index) => (
                   <div>
@@ -88,7 +91,7 @@ const Client = ({token}) => {
                 ))}
               </div>
             </div>
-            <div className="row fs-3 py-3">Support Worker Team</div>
+            <div className="row fs-3 py-3" id="workers_view">Support Worker Team</div>
             <div className="row py-3">
               <div className="d-flex">
                 {client.assignedWorkers?.map((worker, index) => (
