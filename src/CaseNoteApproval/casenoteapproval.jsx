@@ -9,8 +9,8 @@ const CaseNoteApproval = ({ token }) => {
   const [confirmationMessage, setConfirmationMessage] = useState('');
 
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    token && fetchNotes();
+  }, [token]);
 
   const fetchNotes = () => {
     fetch(api + '/notes', {
@@ -34,8 +34,7 @@ const CaseNoteApproval = ({ token }) => {
           type: 'danger',
         });
       });
-  }
-  
+  };
 
   const approveNote = (id) => {
     fetch(api + '/notes/' + id, {
@@ -82,10 +81,10 @@ const CaseNoteApproval = ({ token }) => {
       })
       .catch((error) => console.error('Error updating note:', error));
   };
+
   const viewNoteDetails = (note) => {
     setSelectedNote(note);
   };
-
 
   const unapprovedNotes = notes.filter(note => !note.isMgrAuthorised);
 
@@ -107,16 +106,16 @@ const CaseNoteApproval = ({ token }) => {
                   <button type="button" className="btn-close" onClick={() => setSelectedNote(null)}></button>
                 </div>
                 <div className="modal-body">
-                  <p><strong>ID:</strong> {selectedNote.id}</p>
+                  <p><strong>ID:</strong> {selectedNote._id}</p>
                   <p><strong>Date:</strong> {selectedNote.date}</p>
                   <p><strong>Goals:</strong> {selectedNote.goals}</p>
                   <p><strong>Presentation:</strong> {selectedNote.presentation}</p>
                   <p><strong>Actions:</strong> {selectedNote.actions}</p>
                   <p><strong>Outcome:</strong> {selectedNote.outcome}</p>
-                  <p><strong>Follow-Up:</strong> {selectedNote.followUp}</p>
-                  <p><strong>Follow-Up Note:</strong> {selectedNote.followUpNote}</p>
-                  <p><strong>Author:</strong> {selectedNote.author}</p>
-                  <p><strong>Client ID:</strong> {selectedNote.client_id}</p>
+                  <p><strong>Follow-Up:</strong> {selectedNote.followUp ? 'Yes' : 'No'}</p>
+                  <p><strong>Follow-Up Note:</strong> {selectedNote.followUpNote || 'N/A'}</p>
+                  <p><strong>Author:</strong> {selectedNote.author.email}</p>
+                  <p><strong>Client ID:</strong> {selectedNote.client._id}</p>
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" onClick={() => setSelectedNote(null)}>Close</button>
@@ -140,16 +139,16 @@ const CaseNoteApproval = ({ token }) => {
           </thead>
           <tbody>
             {unapprovedNotes.map((note, index) => (
-              <tr key={note.id.toString()}>
-                <th scope="row">{note.id}</th>
-                <td>{note.author}</td>
+                <tr key={note._id.toString()}>
+                <th scope="row">{note._id}</th>
+                <td>{`${note.author.firstName} ${note.author.lastName}`}</td> 
                 <td>{note.date}</td>
-                <td>{note.client_id}</td>
+                <td>{`${note.client.firstName} ${note.client.lastName}`}</td>
                 <td>{note.goals.slice(0, 30)}...</td>
                 <td>{note.isMgrAuthorised ? "Approved" : "Rejected"}</td>
                 <td>
-                  <button className="btn btn-success" onClick={() => approveNote(note.id)}>Approve</button>
-                  <button className="btn btn-danger ml-2" onClick={() => rejectNote(note.id)}>Reject</button>
+                  <button className="btn btn-success" onClick={() => approveNote(note._id)}>Approve</button>
+                  <button className="btn btn-danger ml-2" onClick={() => rejectNote(note._id)}>Reject</button>
                 </td>
                 <td>
                   <button className="btn btn-info" onClick={() => viewNoteDetails(note)}>View Entry</button>

@@ -142,7 +142,7 @@ const Welcome = () => {
                 className={`d-flex justify-content-between align-items-center p-2 bg-${list.bgcolor} bg-opacity-75`}
               >
                 <i className={`bi ${list.imsrc} text-white fs-1`}></i>
-            <Link to={`/${list.title}`}>  <label className="fs-3 text-white">{list.title}</label></Link>
+            <Link to={`/${list.endpoint}`}>  <label className="fs-3 text-white">{list.title}</label></Link>
               </div>
               <div className="p-2 bg-secondary bg-opacity-25">{list.description}</div>
             </div>
