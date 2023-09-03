@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const CaseNoteApproval = ({ token }) => {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
-  const [confirmationMessage, setConfirmationMessage] = useState('');
+  const [confirmationMessage, setConfirmationMessage] = useState(null);
 
   useEffect(() => {
     token && fetchNotes();
@@ -23,7 +23,9 @@ const CaseNoteApproval = ({ token }) => {
         return response.json();
       })
       .then((data) => {
+        console.log("original data:", data)
         const unapprovedNotes = data.filter(note => !note.isMgrAuthorised);
+        console.log("Unapproved Notes:", unapprovedNotes)
         setNotes(unapprovedNotes);
       })      
       .catch((error) => {
