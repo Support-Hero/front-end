@@ -81,7 +81,7 @@ const Login = ({ navigate,setUsers,setToken }) => {
     <div className="container" >
       <div className="d-flex justify-content-center align-items-center" >
         <img
-          src="https://media.discordapp.net/attachments/1138692622467211358/1142424320388378674/image.png"
+          src="/images/mainicon.png"
           style={{ width: "50%", objectFit: "contain" }}
           id="logo"
         />
